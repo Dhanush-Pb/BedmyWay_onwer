@@ -11,6 +11,8 @@ class Authloadin extends AuthState {}
 class Authenticated extends AuthState {
   String user;
   Authenticated(this.user);
+
+  get usermodel => null;
 }
 
 class AuthenticateError extends AuthState {
@@ -19,3 +21,10 @@ class AuthenticateError extends AuthState {
 }
 
 class UnAuthenticated extends AuthState {}
+
+class UserDataLoadedgeted extends AuthState {
+  final Usermodel user;
+  UserDataLoadedgeted(this.user);
+
+  get userdata => null;
+}

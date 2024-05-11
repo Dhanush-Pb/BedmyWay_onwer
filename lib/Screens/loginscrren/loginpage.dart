@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:hotelonwer/Screens/singup.dart';
+import 'package:hotelonwer/Screens/loginscrren/singup.dart';
 import 'package:hotelonwer/bloc/auth_bloc.dart';
 import 'package:hotelonwer/coustmfields/Bottm.dart';
 import 'package:hotelonwer/coustmfields/google.dart';
+import 'package:hotelonwer/coustmfields/transitrion.dart';
 import 'package:lottie/lottie.dart';
 
 class Logingpage extends StatefulWidget {
@@ -28,8 +29,12 @@ class _LogingpageState extends State<Logingpage> {
         builder: (context, state) {
           if (state is Authenticated) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
-              Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => BottomNavPage()));
+              Navigator.of(context).pushReplacement(buildPageTransition(
+                child:
+                    BottomNavPage(), // Specify the page you want to navigate to
+                curve: Curves.easeIn,
+                axisDirection: AxisDirection.left,
+              ));
             });
           } else if (state is AuthenticateError) {
             // Show Snackbar if authentication error occurs
@@ -51,6 +56,8 @@ class _LogingpageState extends State<Logingpage> {
                 ),
               );
             });
+          } else if (state is Authloadin) {
+            CircularProgressIndicator();
           }
           return Form(
             key: _formKey,
@@ -62,12 +69,12 @@ class _LogingpageState extends State<Logingpage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const SizedBox(
-                      height: 220,
+                      height: 300,
                     ),
                     Lottie.asset('lib/Asset/Animation - 1715182542819.json',
-                        width: 250),
+                        height: 150),
                     const SizedBox(
-                      height: 15,
+                      height: 35,
                     ),
                     GestureDetector(
                       onTap: () {
@@ -77,7 +84,7 @@ class _LogingpageState extends State<Logingpage> {
                         decoration: BoxDecoration(
                           border: Border.all(width: .5),
                           borderRadius: BorderRadius.circular(10),
-                          color: const Color.fromARGB(255, 255, 255, 255),
+                          color: Color.fromARGB(255, 0, 0, 0),
                         ),
                         height: 45,
                         width: 350,
@@ -96,11 +103,11 @@ class _LogingpageState extends State<Logingpage> {
                               width: 25,
                             ),
                             Text(
-                              'Continue With Google',
+                              'Continue with Google',
                               style: TextStyle(
                                   fontSize: 17,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color.fromARGB(255, 235, 17, 17)),
+                                  fontWeight: FontWeight.w500,
+                                  color: Color.fromARGB(255, 255, 255, 255)),
                             )
                           ],
                         ),
@@ -114,9 +121,9 @@ class _LogingpageState extends State<Logingpage> {
                       decoration: InputDecoration(
                         hintText: 'Email',
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15)),
+                            borderRadius: BorderRadius.circular(10)),
                         focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
+                            borderRadius: BorderRadius.circular(10),
                             borderSide: const BorderSide(
                                 color: Color.fromARGB(255, 0, 0, 0))),
                         contentPadding: const EdgeInsets.symmetric(
@@ -138,9 +145,9 @@ class _LogingpageState extends State<Logingpage> {
                         hintText: 'Password',
                         border: const OutlineInputBorder(
                             borderRadius:
-                                BorderRadius.all(Radius.circular(15))),
+                                BorderRadius.all(Radius.circular(10))),
                         focusedBorder: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(15)),
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
                             borderSide: BorderSide(
                                 color: Color.fromARGB(255, 0, 0, 0))),
                         contentPadding: const EdgeInsets.symmetric(
@@ -174,7 +181,7 @@ class _LogingpageState extends State<Logingpage> {
                             const Size(150.0, 35.0)),
                       ),
                       child: const Text(
-                        'Login',
+                        'Sing in',
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
@@ -183,7 +190,7 @@ class _LogingpageState extends State<Logingpage> {
                     TextButton(
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => Singuppage()));
+                            builder: (context) => SignupPage()));
                         // Navigate to sign-up page
                       },
                       child: const Text(

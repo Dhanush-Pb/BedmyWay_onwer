@@ -1,10 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
-import 'package:hotelonwer/Screens/homepage.dart';
-import 'package:hotelonwer/Screens/loginpage.dart';
+
+import 'package:hotelonwer/Screens/loginscrren/loginpage.dart';
 import 'package:hotelonwer/coustmfields/Bottm.dart';
-// Import your login page
+import 'package:hotelonwer/coustmfields/transitrion.dart';
 
 Future<void> signInWithGoogle(BuildContext context) async {
   try {
@@ -33,21 +35,47 @@ Future<void> signInWithGoogle(BuildContext context) async {
 
     // Check if user credential is null
     if (userCredential.user == null) {
-      print("User credential is null");
       return;
     }
 
-    // Navigate to the home page
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => BottomNavPage()),
-    );
+    // Check if user is not null and navigate accordingly
+    if (userCredential.user != null) {
+      Navigator.of(context).pushReplacement(buildPageTransition(
+          child: BottomNavPage(),
+          curve: Curves.easeIn,
+          axisDirection: AxisDirection.left));
+    } else {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const Logingpage()),
+      );
+    }
   } catch (error) {
     // Handle sign-in errors
     print("Error signing in with Google: $error");
 
     // Navigate to the login page
     Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => Logingpage()),
+      MaterialPageRoute(builder: (context) => const Logingpage()),
     );
+  }
+}
+
+Future<void> signOut(BuildContext context) async {
+  try {
+    // Sign out from Firebase
+    await FirebaseAuth.instance.signOut();
+
+    // Sign out from Google Sign-In
+    await GoogleSignIn().signOut();
+
+    // Navigate to the login page and remove all previous routes from the stack
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (context) => const Logingpage()),
+      (Route<dynamic> route) => false,
+    );
+  } catch (error) {
+    // Handle sign-out errors
+    // ignore: avoid_print
+    print("Error signing out: $error");
   }
 }

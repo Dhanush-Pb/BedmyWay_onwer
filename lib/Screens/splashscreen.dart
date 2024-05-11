@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hotelonwer/Screens/homepage.dart';
-import 'package:hotelonwer/Screens/loginpage.dart';
+
+import 'package:hotelonwer/Screens/loginscrren/loginpage.dart';
+
 import 'package:hotelonwer/bloc/auth_bloc.dart';
 import 'package:hotelonwer/coustmfields/Bottm.dart';
 import 'package:lottie/lottie.dart';

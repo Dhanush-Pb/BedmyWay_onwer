@@ -88,5 +88,47 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(AuthenticateError(e.toString()));
       }
     });
+    on<ForgotPasswordEvent>((event, emit) async {
+      emit(Authloadin());
+      try {
+        await _auth.sendPasswordResetEmail(email: event.email);
+        // Password reset email sent successfully
+        emit(AuthInitial());
+      } catch (e) {
+        // Error occurred while sending password reset email
+        emit(AuthenticateError(e.toString()));
+      }
+    });
+    on<FetchDataEvent>((event, emit) async {
+      emit(Authloadin());
+      try {
+        final User? user = _auth.currentUser;
+        if (user != null) {
+          // Fetch user data from Firestore using user ID
+          final DocumentSnapshot userDoc = await FirebaseFirestore.instance
+              .collection('users')
+              .doc(user.uid)
+              .get();
+          if (userDoc.exists) {
+            final userData = userDoc.data() as Map<String, dynamic>;
+            final userdetails = Usermodel(
+              Uid: userData['uid'],
+
+              name: userData['name'],
+              email: userData['email'],
+              phone: userData['phone'],
+              // Add other fields as needed
+            );
+            emit(UserDataLoadedgeted(userdetails));
+          } else {
+            emit(AuthenticateError('User data not found'));
+          }
+        } else {
+          emit(UnAuthenticated());
+        }
+      } catch (e) {
+        emit(AuthenticateError(e.toString()));
+      }
+    });
   }
 }

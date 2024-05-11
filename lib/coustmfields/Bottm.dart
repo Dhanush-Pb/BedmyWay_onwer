@@ -28,20 +28,20 @@ class _BottomNavPageState extends State<BottomNavPage> {
               ),
               Tab(
                 icon: Icon(
-                  Icons.featured_play_list_outlined,
-                  size: 27,
+                  Icons.view_list,
+                  size: 28,
                 ),
               ),
               Tab(
                 icon: Icon(
-                  Icons.add_circle_outline_outlined,
-                  size: 29,
+                  Icons.add_box,
+                  size: 28,
                 ),
               ),
               Tab(
                 icon: Icon(
                   Icons.message,
-                  size: 30,
+                  size: 28,
                 ),
               )
             ],
