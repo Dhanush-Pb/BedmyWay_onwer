@@ -3,8 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:hotelonwer/Screens/loginscrren/singup.dart';
 import 'package:hotelonwer/bloc/auth_bloc.dart';
-import 'package:hotelonwer/coustmfields/Bottm.dart';
+import 'package:hotelonwer/coustmfields/Bottm_page.dart';
 import 'package:hotelonwer/coustmfields/google.dart';
+import 'package:hotelonwer/coustmfields/theame.dart';
 import 'package:hotelonwer/coustmfields/transitrion.dart';
 import 'package:lottie/lottie.dart';
 
@@ -25,6 +26,7 @@ class _LogingpageState extends State<Logingpage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: mycolor5,
       body: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) {
           if (state is Authenticated) {
@@ -57,7 +59,7 @@ class _LogingpageState extends State<Logingpage> {
               );
             });
           } else if (state is Authloadin) {
-            CircularProgressIndicator();
+            const CircularProgressIndicator();
           }
           return Form(
             key: _formKey,
@@ -84,7 +86,7 @@ class _LogingpageState extends State<Logingpage> {
                         decoration: BoxDecoration(
                           border: Border.all(width: .5),
                           borderRadius: BorderRadius.circular(10),
-                          color: Color.fromARGB(255, 0, 0, 0),
+                          color: mycolor3,
                         ),
                         height: 45,
                         width: 350,
@@ -95,7 +97,7 @@ class _LogingpageState extends State<Logingpage> {
                             ),
                             CircleAvatar(
                               radius: 13,
-                              backgroundColor: Color.fromARGB(0, 90, 81, 81),
+                              backgroundColor: Color.fromARGB(0, 0, 0, 0),
                               backgroundImage:
                                   AssetImage('lib/Asset/300221.png'),
                             ),
@@ -119,9 +121,14 @@ class _LogingpageState extends State<Logingpage> {
                     TextFormField(
                       controller: _emailController,
                       decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        prefixIcon: const Icon(Icons.mail_outline_outlined),
                         hintText: 'Email',
+                        hintStyle: const TextStyle(
+                            color: Color.fromARGB(255, 0, 0, 0)),
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10)),
+                            borderRadius: BorderRadius.circular(8)),
                         focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                             borderSide: const BorderSide(
@@ -134,7 +141,7 @@ class _LogingpageState extends State<Logingpage> {
                         if (value == null || value.isEmpty) {
                           return 'Email is required';
                         }
-                        // You can add more sophisticated email validation if needed
+
                         return null;
                       },
                     ),
@@ -142,10 +149,14 @@ class _LogingpageState extends State<Logingpage> {
                     TextFormField(
                       controller: _passwordController,
                       decoration: InputDecoration(
+                        fillColor: Colors.white,
+                        filled: true,
+                        prefixIcon: const Icon(Icons.visibility_off),
                         hintText: 'Password',
+                        hintStyle: const TextStyle(
+                            color: Color.fromARGB(255, 0, 0, 0)),
                         border: const OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
+                            borderRadius: BorderRadius.all(Radius.circular(8))),
                         focusedBorder: const OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                             borderSide: BorderSide(
@@ -163,26 +174,35 @@ class _LogingpageState extends State<Logingpage> {
                         return null;
                       },
                     ),
-                    const SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: () {
+                    const SizedBox(height: 40),
+                    GestureDetector(
+                      onTap: () {
                         if (_formKey.currentState!.validate()) {
-                          // Dispatch login event with email and password
                           BlocProvider.of<AuthBloc>(context).add(Loginevent(
                             email: _emailController.text.trim(),
                             password: _passwordController.text.trim(),
                           ));
                         }
                       },
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(
-                            const Color.fromARGB(255, 235, 17, 17)),
-                        minimumSize: MaterialStateProperty.all<Size>(
-                            const Size(150.0, 35.0)),
-                      ),
-                      child: const Text(
-                        'Sing in',
-                        style: TextStyle(color: Colors.white),
+                      child: Container(
+                        height: 40,
+                        width: 250,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: Color.fromARGB(255, 13, 53, 138),
+                        ),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Sign in',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     const SizedBox(height: 20),
@@ -193,9 +213,22 @@ class _LogingpageState extends State<Logingpage> {
                             builder: (context) => SignupPage()));
                         // Navigate to sign-up page
                       },
-                      child: const Text(
-                        'Sign up',
-                        style: TextStyle(color: Colors.black),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Do you have an account?',
+                            style: TextStyle(color: Colors.black),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          const Text(
+                            'Sign up',
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 77, 175, 255)),
+                          ),
+                        ],
                       ),
                     ),
                   ],

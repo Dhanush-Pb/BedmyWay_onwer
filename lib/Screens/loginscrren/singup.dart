@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:hotelonwer/Screens/bottm_screens/home_page.dart';
 import 'package:hotelonwer/Screens/loginscrren/passwordreset.dart';
 import 'package:hotelonwer/bloc/auth_bloc.dart';
-import 'package:hotelonwer/coustmfields/Bottm.dart';
+import 'package:hotelonwer/coustmfields/Bottm_page.dart';
 import 'package:hotelonwer/coustmfields/textformfield.dart';
+import 'package:hotelonwer/coustmfields/theame.dart';
 import 'package:hotelonwer/coustmfields/transitrion.dart';
 import 'package:hotelonwer/model/user_model.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:lottie/lottie.dart';
 
 class SignupPage extends StatelessWidget {
@@ -22,6 +25,7 @@ class SignupPage extends StatelessWidget {
     final TextEditingController phoneController = TextEditingController();
 
     return Scaffold(
+      backgroundColor: mycolor5,
       appBar: AppBar(),
       body: BlocProvider(
         create: (context) => AuthBloc(),
@@ -107,14 +111,22 @@ class SignupPage extends StatelessWidget {
                           },
                         ),
                         const SizedBox(height: 20),
-                        CustomTextField(
-                          keyboardType: TextInputType.phone,
-                          hintText: 'Phone',
+                        // Replace CustomTextField with IntlPhoneField
+                        IntlPhoneField(
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor: Colors.white,
+                            labelText: 'Phone',
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                          ),
                           controller: phoneController,
+                          initialCountryCode: 'IN', // Initial country code
                           validator: (value) {
-                            if (value == null || value.isEmpty) {
+                            if (value == null) {
                               return 'Phone is required';
                             }
+                            // Additional validation can be added here if needed
                             return null;
                           },
                         ),
@@ -132,6 +144,7 @@ class SignupPage extends StatelessWidget {
                                   BlocProvider.of<AuthBloc>(context);
                               authBloc.add(singupevent(user, usermodel: user));
                             }
+                            const Homepage();
                           },
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:hotelonwer/Screens/Splashscreen.dart';
+
+import 'package:hotelonwer/Screens/bottm_screens/splash_screen.dart';
 import 'package:hotelonwer/bloc/auth_bloc.dart';
 import 'package:hotelonwer/firebase_options.dart';
 

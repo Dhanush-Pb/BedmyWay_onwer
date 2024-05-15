@@ -5,7 +5,7 @@ class CustomTextField extends StatelessWidget {
   final TextInputType keyboardType;
   final TextEditingController controller;
   final bool isPassword;
-  final int? minLength;
+
   final String? Function(String?)? validator; // Validator function
 
   const CustomTextField({
@@ -13,7 +13,6 @@ class CustomTextField extends StatelessWidget {
     required this.controller,
     required this.hintText,
     this.isPassword = false,
-    this.minLength,
     this.validator, // Accept validator parameter
     Key? key,
   }) : super(key: key);
@@ -23,9 +22,11 @@ class CustomTextField extends StatelessWidget {
     return TextFormField(
       controller: controller,
       keyboardType: keyboardType,
-      obscureText: isPassword, // Show/hide password
-      validator: validator, // Use the provided validator function
+      obscureText: isPassword,
+      validator: validator,
       decoration: InputDecoration(
+        filled: true,
+        fillColor: Colors.white,
         hintText: hintText,
         border: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(10)),

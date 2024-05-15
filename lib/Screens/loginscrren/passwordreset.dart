@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hotelonwer/Screens/loginscrren/loginpage.dart';
 import 'package:hotelonwer/bloc/auth_bloc.dart';
 import 'package:hotelonwer/coustmfields/textformfield.dart';
+import 'package:hotelonwer/coustmfields/theame.dart';
 import 'package:lottie/lottie.dart';
 
+// ignore: must_be_immutable
 class Passwordreset extends StatelessWidget {
   Passwordreset({Key? key}) : super(key: key);
   TextEditingController emailController = TextEditingController();
@@ -18,11 +19,11 @@ class Passwordreset extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: mycolor5,
       appBar: AppBar(),
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is Authloadin) {
-            // Show loading indicator if the request is in progress
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                   behavior: SnackBarBehavior.floating,
@@ -30,10 +31,8 @@ class Passwordreset extends StatelessWidget {
                   content: Text('Loading...')),
             );
           } else if (state is AuthenticateError) {
-            // Show error message if there is an authentication error
             Text(state.messege);
           } else if (state is AuthInitial) {
-            // Show success message if password reset email sent successfully
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                   behavior: SnackBarBehavior.floating,
@@ -67,14 +66,12 @@ class Passwordreset extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    // Dispatch ForgotPasswordEvent with the entered email
                     final String email = emailController.text.trim();
                     if (email.isNotEmpty && isValidEmail(email)) {
                       context
                           .read<AuthBloc>()
                           .add(ForgotPasswordEvent(email: email));
                     } else {
-                      // Show error message if email is empty or not valid
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           behavior: SnackBarBehavior.floating,

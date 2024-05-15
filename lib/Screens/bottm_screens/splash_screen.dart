@@ -4,7 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelonwer/Screens/loginscrren/loginpage.dart';
 
 import 'package:hotelonwer/bloc/auth_bloc.dart';
-import 'package:hotelonwer/coustmfields/Bottm.dart';
+
+import 'package:hotelonwer/coustmfields/Bottm_page.dart';
+import 'package:hotelonwer/coustmfields/theame.dart';
 import 'package:lottie/lottie.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -16,13 +18,6 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    // navigation(context);
-    // TODO: implement initState
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
@@ -66,7 +61,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void navigation(BuildContext context) {
     Future.delayed(const Duration(seconds: 2), () {
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => Logingpage()),
+        MaterialPageRoute(builder: (context) => const Logingpage()),
       );
     });
   }
