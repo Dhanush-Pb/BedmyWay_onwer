@@ -4,9 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
 
-import 'package:hotelonwer/Screens/loginscrren/loginpage.dart';
-import 'package:hotelonwer/coustmfields/Bottm_page.dart';
-import 'package:hotelonwer/coustmfields/transitrion.dart';
+import 'package:hotelonwer/views/Screens/loginscrren/loginpage.dart';
+import 'package:hotelonwer/resources/components/coustmfields/Bottm_page.dart';
+import 'package:hotelonwer/resources/components/coustmfields/transitrion.dart';
 
 Future<void> signInWithGoogle(BuildContext context) async {
   try {

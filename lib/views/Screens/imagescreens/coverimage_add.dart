@@ -1,9 +1,14 @@
+// ignore_for_file: non_constant_identifier_names, no_leading_underscores_for_local_identifiers
+
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:hotelonwer/Screens/bottm_screens/home_page.dart';
-import 'package:hotelonwer/coustmfields/Bottm_page.dart';
-import 'package:hotelonwer/coustmfields/theame.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hotelonwer/controller/bloc/hotel_bloc/bloc/hotel_bloc.dart';
+import 'package:hotelonwer/resources/components/coustmfields/Bottm_page.dart';
+import 'package:hotelonwer/resources/components/coustmfields/theame.dart';
 import 'package:image_picker/image_picker.dart';
 
 class Coverimageadd extends StatefulWidget {
@@ -14,34 +19,37 @@ class Coverimageadd extends StatefulWidget {
 }
 
 class _CoverimageaddState extends State<Coverimageadd> {
-  File? _coverImage;
-  File? _posterImage;
-  List<File> _touristImages = [];
+  Uint8List? _coverImage;
+  Uint8List? _posterImage;
+  List<Uint8List> _touristImages = [];
 
   Future<void> _selectImage(bool isCover) async {
     final ImagePicker _picker = ImagePicker();
     XFile? image = await _picker.pickImage(source: ImageSource.gallery);
 
-    setState(() {
-      if (image != null) {
+    if (image != null) {
+      Uint8List imageData = await image.readAsBytes();
+      setState(() {
         if (isCover) {
-          _coverImage = File(image.path);
+          _coverImage = imageData;
         } else {
-          _posterImage = File(image.path);
+          _posterImage = imageData;
         }
-      }
-    });
+      });
+    }
   }
 
   Future<void> _selectMultipleTouristImages() async {
     final ImagePicker _picker = ImagePicker();
     List<XFile>? images = await _picker.pickMultiImage();
 
-    setState(() {
-      if (images != null) {
-        _touristImages.addAll(images.map((image) => File(image.path)));
-      }
-    });
+    if (images != null) {
+      List<Uint8List> imageDataList =
+          await Future.wait(images.map((image) => image.readAsBytes()));
+      setState(() {
+        _touristImages.addAll(imageDataList);
+      });
+    }
   }
 
   @override
@@ -82,7 +90,7 @@ class _CoverimageaddState extends State<Coverimageadd> {
                         child: _coverImage != null
                             ? ClipRRect(
                                 borderRadius: BorderRadius.circular(10),
-                                child: Image.file(
+                                child: Image.memory(
                                   _coverImage!,
                                   fit: BoxFit.cover,
                                   height: 200, // Adjusted size
@@ -122,12 +130,12 @@ class _CoverimageaddState extends State<Coverimageadd> {
                         child: _posterImage != null
                             ? CircleAvatar(
                                 radius: 90,
-                                backgroundImage: FileImage(_posterImage!),
+                                backgroundImage: MemoryImage(_posterImage!),
                               )
                             : const Column(
                                 children: [
                                   Text(
-                                    'select poster path image',
+                                    'Select poster image',
                                     style: TextStyle(color: Colors.white),
                                   ),
                                   Icon(
@@ -165,7 +173,7 @@ class _CoverimageaddState extends State<Coverimageadd> {
                                 itemBuilder: (context, index) {
                                   return ClipRRect(
                                     borderRadius: BorderRadius.circular(10),
-                                    child: Image.file(
+                                    child: Image.memory(
                                       _touristImages[index],
                                       fit: BoxFit.cover,
                                     ),
@@ -175,7 +183,7 @@ class _CoverimageaddState extends State<Coverimageadd> {
                             : const Column(
                                 children: [
                                   Text(
-                                    'select the nearest tourist place images',
+                                    'Select nearest tourist place images',
                                     style: TextStyle(color: Colors.white),
                                   ),
                                   Icon(
@@ -194,56 +202,88 @@ class _CoverimageaddState extends State<Coverimageadd> {
           ),
         ),
       ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
-        child: GestureDetector(
-          onTap: () {
-            _saveHotelDetails();
-          },
-          child: Material(
-            color: mycolor3,
-            borderRadius: BorderRadius.circular(15),
-            elevation: 20,
-            child: Container(
-              height: 50,
-              width: 90,
-              child: const Center(
-                child: Text(
-                  'Save your hotel details',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 17),
+      bottomNavigationBar: BlocConsumer<HotelBloc, HotelState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          return Padding(
+            padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+            child: GestureDetector(
+              onTap: () {
+                if (_coverImage == null ||
+                    _posterImage == null ||
+                    _touristImages.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      duration: const Duration(seconds: 1),
+                      content: const Text(
+                        'Please select all required images.',
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 255, 255, 255),
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      backgroundColor: mycolor3,
+                      behavior: SnackBarBehavior.floating,
+                      margin: const EdgeInsets.only(
+                          bottom: 15, left: 25, right: 25),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16.0, vertical: 12.0),
+                    ),
+                  );
+                } else {
+                  final hotelBloc = BlocProvider.of<HotelBloc>(context);
+
+                  List<Uint8List> Coverimagelist = [
+                    _coverImage!,
+                  ];
+                  List<Uint8List> Posterimagelist = [
+                    _posterImage!,
+                  ];
+
+                  List<Uint8List> Tourstimagelist = _touristImages;
+
+                  hotelBloc.add(Uploadcoverimages(coverimaged: Coverimagelist));
+                  hotelBloc.add(Uploadpathimages(pathimages: Posterimagelist));
+
+                  hotelBloc.add(Uploadtouriamges(tourimages: Tourstimagelist));
+                  // final tourstimage = {
+                  //   'tourimage': _touristImages,
+                  //   'coverimage': _coverImage,
+                  //   'pathimage': _posterImage,
+                  // };
+
+                  // hotelBloc
+                  //     .add(UpdateHotelData(tourstimage, id: hotelBloc.a!.id));
+
+                  Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) => BottomNavPage()),
+                    (route) => false, // This will remove all the routes
+                  );
+                }
+              },
+              child: Material(
+                color: mycolor3,
+                borderRadius: BorderRadius.circular(15),
+                elevation: 20,
+                child: SizedBox(
+                  height: 50,
+                  width: 90,
+                  child: const Center(
+                    child: Text(
+                      'Save your hotel details',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 17,
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),
-          ),
-        ),
+          );
+        },
       ),
     );
-  }
-
-  _saveHotelDetails() {
-    if (_coverImage == null || _posterImage == null || _touristImages.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          duration: const Duration(seconds: 1),
-          content: const Text(
-            'Please select all required images.',
-            style: TextStyle(
-                color: Color.fromARGB(255, 255, 255, 255),
-                fontWeight: FontWeight.w700),
-          ),
-          backgroundColor: mycolor3,
-          behavior: SnackBarBehavior.floating,
-          margin: const EdgeInsets.only(bottom: 15, left: 25, right: 25),
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-        ),
-      );
-    } else {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => BottomNavPage()),
-      );
-    }
   }
 }

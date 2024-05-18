@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:hotelonwer/Screens/bottm_screens/home_page.dart';
-import 'package:hotelonwer/Screens/loginscrren/passwordreset.dart';
-import 'package:hotelonwer/bloc/auth_bloc.dart';
-import 'package:hotelonwer/coustmfields/Bottm_page.dart';
-import 'package:hotelonwer/coustmfields/textformfield.dart';
-import 'package:hotelonwer/coustmfields/theame.dart';
-import 'package:hotelonwer/coustmfields/transitrion.dart';
+import 'package:hotelonwer/views/Screens/bottm_screens/home_page.dart';
+import 'package:hotelonwer/views/Screens/loginscrren/passwordreset.dart';
+
+import 'package:hotelonwer/controller/bloc/auth_bloc.dart';
+import 'package:hotelonwer/resources/components/coustmfields/Bottm_page.dart';
+import 'package:hotelonwer/resources/components/coustmfields/textformfield.dart';
+import 'package:hotelonwer/resources/components/coustmfields/theame.dart';
+import 'package:hotelonwer/resources/components/coustmfields/transitrion.dart';
 import 'package:hotelonwer/model/user_model.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:lottie/lottie.dart';
@@ -186,8 +187,8 @@ class SignupPage extends StatelessWidget {
     );
   }
 
-  void _navigateToBottomNavPage(BuildContext context) {
-    Navigator.of(context).pushReplacement(buildPageTransition(
+  void _navigateToBottomNavPage(BuildContext context) async {
+    await Navigator.of(context).pushReplacement(buildPageTransition(
         child: BottomNavPage(),
         curve: Curves.easeIn,
         axisDirection: AxisDirection.left));

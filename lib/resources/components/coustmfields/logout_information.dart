@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hotelonwer/Screens/loginscrren/loginpage.dart';
-import 'package:hotelonwer/bloc/auth_bloc.dart';
-import 'package:hotelonwer/coustmfields/google.dart';
-import 'package:hotelonwer/coustmfields/transitrion.dart';
+import 'package:hotelonwer/views/Screens/loginscrren/loginpage.dart';
+
+import 'package:hotelonwer/controller/bloc/auth_bloc.dart';
+import 'package:hotelonwer/resources/components/coustmfields/google.dart';
+import 'package:hotelonwer/resources/components/coustmfields/transitrion.dart';
 
 showLogoutConfirmationDialog(BuildContext context) {
   showDialog(

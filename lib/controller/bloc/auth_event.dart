@@ -26,5 +26,3 @@ class ForgotPasswordEvent extends AuthEvent {
   final String email;
   ForgotPasswordEvent({required this.email});
 }
-
-class FetchDataEvent extends AuthEvent {}

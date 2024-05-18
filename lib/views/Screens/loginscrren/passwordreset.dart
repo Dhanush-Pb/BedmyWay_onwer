@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hotelonwer/bloc/auth_bloc.dart';
-import 'package:hotelonwer/coustmfields/textformfield.dart';
-import 'package:hotelonwer/coustmfields/theame.dart';
+
+import 'package:hotelonwer/controller/bloc/auth_bloc.dart';
+import 'package:hotelonwer/resources/components/coustmfields/textformfield.dart';
+import 'package:hotelonwer/resources/components/coustmfields/theame.dart';
 import 'package:lottie/lottie.dart';
 
 // ignore: must_be_immutable

@@ -1,10 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:hotelonwer/coustmfields/transitrion.dart';
+import 'package:hotelonwer/resources/components/coustmfields/transitrion.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:hotelonwer/Screens/imagescreens/hotel_image.dart';
-import 'package:hotelonwer/coustmfields/theame.dart';
+import 'package:hotelonwer/views/Screens/imagescreens/hotel_image.dart';
+import 'package:hotelonwer/resources/components/coustmfields/theame.dart';
 
 class CustomBottomSheet {
   show(BuildContext context) {
@@ -38,8 +38,8 @@ class CustomBottomSheet {
               const SizedBox(height: 20),
               Center(
                 child: GestureDetector(
-                  onTap: () async {
-                    await selectImages(context);
+                  onTap: () {
+                    selectImages(context);
                   },
                   child: const CircleAvatar(
                     radius: 60,

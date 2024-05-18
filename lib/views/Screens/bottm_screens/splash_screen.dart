@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hotelonwer/views/Screens/bottm_screens/data_showing.dart';
 
-import 'package:hotelonwer/Screens/loginscrren/loginpage.dart';
+import 'package:hotelonwer/views/Screens/loginscrren/loginpage.dart';
 
-import 'package:hotelonwer/bloc/auth_bloc.dart';
+import 'package:hotelonwer/controller/bloc/auth_bloc.dart';
 
-import 'package:hotelonwer/coustmfields/Bottm_page.dart';
-import 'package:hotelonwer/coustmfields/theame.dart';
+import 'package:hotelonwer/resources/components/coustmfields/Bottm_page.dart';
+
 import 'package:lottie/lottie.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -19,6 +20,14 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   @override
+  void initState() {
+    Datalisttpage();
+
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
@@ -29,7 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
           );
         } else if (state is UnAuthenticated) {
           Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => const Logingpage()),
+            MaterialPageRoute(builder: (context) => Logingpage()),
           );
         }
       },

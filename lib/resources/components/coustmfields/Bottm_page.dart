@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:hotelonwer/Screens/bottm_screens/add_details.dart';
-import 'package:hotelonwer/Screens/bottm_screens/data_showing.dart';
-import 'package:hotelonwer/Screens/bottm_screens/home_page.dart';
-import 'package:hotelonwer/Screens/bottm_screens/messege_screen.dart';
-import 'package:hotelonwer/coustmfields/theame.dart';
+
+import 'package:hotelonwer/views/Screens/bottm_screens/add_details.dart';
+import 'package:hotelonwer/views/Screens/bottm_screens/data_showing.dart';
+import 'package:hotelonwer/views/Screens/bottm_screens/home_page.dart';
+import 'package:hotelonwer/views/Screens/bottm_screens/messege_screen.dart';
+import 'package:hotelonwer/resources/components/coustmfields/theame.dart';
 
 class BottomNavPage extends StatefulWidget {
   @override

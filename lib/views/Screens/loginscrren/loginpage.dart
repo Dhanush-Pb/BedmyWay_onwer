@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:hotelonwer/Screens/loginscrren/singup.dart';
-import 'package:hotelonwer/bloc/auth_bloc.dart';
-import 'package:hotelonwer/coustmfields/Bottm_page.dart';
-import 'package:hotelonwer/coustmfields/google.dart';
-import 'package:hotelonwer/coustmfields/theame.dart';
-import 'package:hotelonwer/coustmfields/transitrion.dart';
+import 'package:hotelonwer/views/Screens/loginscrren/singup.dart';
+
+import 'package:hotelonwer/controller/bloc/auth_bloc.dart';
+import 'package:hotelonwer/resources/components/coustmfields/Bottm_page.dart';
+import 'package:hotelonwer/resources/components/coustmfields/google.dart';
+import 'package:hotelonwer/resources/components/coustmfields/theame.dart';
+import 'package:hotelonwer/resources/components/coustmfields/transitrion.dart';
 import 'package:lottie/lottie.dart';
 
 class Logingpage extends StatefulWidget {
@@ -208,14 +209,14 @@ class _LogingpageState extends State<Logingpage> {
                     const SizedBox(height: 20),
                     const Divider(),
                     TextButton(
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
+                      onPressed: () async {
+                        await Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => SignupPage()));
                         // Navigate to sign-up page
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
+                        children: const [
                           Text(
                             'Do you have an account?',
                             style: TextStyle(color: Colors.black),
@@ -223,7 +224,7 @@ class _LogingpageState extends State<Logingpage> {
                           SizedBox(
                             width: 5,
                           ),
-                          const Text(
+                          Text(
                             'Sign up',
                             style: TextStyle(
                                 color: Color.fromARGB(255, 77, 175, 255)),

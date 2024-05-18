@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hotelonwer/coustmfields/theame.dart';
+
+import 'package:hotelonwer/resources/components/coustmfields/theame.dart';
 
 class CustomTextField2 extends StatefulWidget {
   final String hintText;
@@ -8,6 +9,7 @@ class CustomTextField2 extends StatefulWidget {
   final bool isPassword;
   final int? minLength;
   final int? maxLines;
+  final int? maxlength;
   final String? Function(String?)? validator;
   final Color? fillColor;
 
@@ -20,6 +22,7 @@ class CustomTextField2 extends StatefulWidget {
     this.maxLines,
     this.validator,
     this.fillColor,
+    this.maxlength,
     Key? key,
   }) : super(key: key);
 
@@ -34,6 +37,7 @@ class _CustomTextField2State extends State<CustomTextField2> {
       color: Color.fromARGB(0, 255, 255, 255),
       borderRadius: BorderRadius.circular(15),
       child: TextFormField(
+        maxLength: widget.maxlength,
         controller: widget.controller,
         keyboardType: widget.keyboardType,
         obscureText: widget.isPassword,
@@ -57,9 +61,11 @@ class _CustomTextField2State extends State<CustomTextField2> {
           ),
           filled: true,
           fillColor: widget.fillColor ?? const Color.fromARGB(0, 136, 136, 136),
-          border: OutlineInputBorder(borderSide: BorderSide.none),
+          border: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(8)),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(8),
             borderSide: BorderSide(color: mycolor3),
           ),
           contentPadding:

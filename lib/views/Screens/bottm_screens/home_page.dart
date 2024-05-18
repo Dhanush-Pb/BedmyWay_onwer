@@ -1,8 +1,12 @@
+import 'dart:developer';
+
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-import 'package:hotelonwer/Screens/loginscrren/singup.dart';
-import 'package:hotelonwer/coustmfields/logout_information.dart';
-import 'package:hotelonwer/coustmfields/theame.dart';
+import 'package:hotelonwer/views/Screens/loginscrren/singup.dart';
+import 'package:hotelonwer/resources/components/coustmfields/logout_information.dart';
+import 'package:hotelonwer/resources/components/coustmfields/theame.dart';
 
 class Homepage extends StatefulWidget {
   // ignore: use_key_in_widget_constructors
@@ -13,8 +17,17 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+  User? currentUser;
+
+  @override
+  void initState() {
+    super.initState();
+    currentUser = FirebaseAuth.instance.currentUser;
+  }
+
   @override
   Widget build(BuildContext context) {
+    log('homepage');
     return Scaffold(
       backgroundColor: mycolor5,
       appBar: AppBar(
@@ -27,7 +40,7 @@ class _HomepageState extends State<Homepage> {
                 color: Mycolor1,
                 size: 35,
               ),
-              onPressed: () {
+              onPressed: () async {
                 Scaffold.of(context).openDrawer();
               },
             );
@@ -47,25 +60,38 @@ class _HomepageState extends State<Homepage> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(),
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 90),
-                        child: Image.asset(
-                          'lib/Asset/chat.png',
-                          scale: 12,
-                        ),
+                  Center(
+                    child: CircleAvatar(
+                      radius: 35,
+                      backgroundColor: Colors.transparent,
+                      backgroundImage: currentUser?.photoURL != null
+                          ? NetworkImage(currentUser!.photoURL!)
+                          : AssetImage('lib/Asset/man.png') as ImageProvider,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Center(
+                    child: Text(
+                      currentUser?.displayName ?? '',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 15,
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 70),
-                    child: Image.asset(
-                      'lib/Asset/man.png',
-                      height: 90,
+                  Center(
+                    child: Text(
+                      currentUser?.email ?? 'No Email',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w300,
+                        fontSize: 15,
+                      ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -78,8 +104,8 @@ class _HomepageState extends State<Homepage> {
                 color: Colors.red,
               ),
               title: const Text('Logout'),
-              onTap: () {
-                showLogoutConfirmationDialog(context);
+              onTap: () async {
+                await showLogoutConfirmationDialog(context);
               },
             ),
             ListTile(
@@ -89,9 +115,8 @@ class _HomepageState extends State<Homepage> {
               ),
               title: const Text('Add Account'),
               onTap: () {
-                // Navigate to settings page
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => SignupPage())); // Close the drawer
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => SignupPage()));
               },
             ),
             const Column(
@@ -101,9 +126,9 @@ class _HomepageState extends State<Homepage> {
                 SizedBox(
                   height: 370,
                 ),
-                Text('Version 1.0.0')
+                Text('Version 1.0.0'),
               ],
-            )
+            ),
           ],
         ),
       ),
