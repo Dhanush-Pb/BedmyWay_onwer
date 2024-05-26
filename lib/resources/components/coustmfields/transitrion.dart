@@ -24,7 +24,7 @@ PageRouteBuilder buildPageTransition({
   );
 }
 
-PageRouteBuilder transition2({
+PageRouteBuilder transition3({
   required Widget child,
   required Curve curve,
   required AxisDirection axisDirection,
@@ -60,4 +60,22 @@ PageRouteBuilder transition2({
       },
     );
   }
+}
+
+PageRouteBuilder transition2({
+  required Widget child,
+  required Curve curve,
+  required AxisDirection axisDirection,
+}) {
+  final opacityTween = Tween(begin: 0.0, end: 1.0);
+
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => child,
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      return FadeTransition(
+        opacity: animation.drive(opacityTween),
+        child: child,
+      );
+    },
+  );
 }

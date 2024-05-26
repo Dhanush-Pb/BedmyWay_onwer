@@ -47,3 +47,27 @@ class HotelDataFetched extends HotelState {
   // ignore: non_constant_identifier_names
   HotelDataFetched({required this.Hotels});
 }
+
+class HotelImageReplaced extends HotelState {
+  final downloadUrl;
+
+  HotelImageReplaced({required this.downloadUrl});
+}
+
+class CoverImageReplaced extends HotelState {
+  final downloadUrl;
+
+  CoverImageReplaced({required this.downloadUrl});
+}
+
+class PathImageReplaced extends HotelState {
+  final downloadUrl;
+
+  PathImageReplaced({required this.downloadUrl});
+}
+
+class TourImageReplaced extends HotelState {
+  final downloadUrl;
+
+  TourImageReplaced({required this.downloadUrl});
+}

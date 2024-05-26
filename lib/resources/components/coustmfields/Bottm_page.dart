@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hotelonwer/controller/bloc/hotel_bloc/bloc/hotel_bloc.dart';
 
 import 'package:hotelonwer/views/Screens/bottm_screens/add_details.dart';
 import 'package:hotelonwer/views/Screens/bottm_screens/data_showing.dart';
@@ -12,6 +14,13 @@ class BottomNavPage extends StatefulWidget {
 }
 
 class _BottomNavPageState extends State<BottomNavPage> {
+  @override
+  void initState() {
+    fetchdata();
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -73,5 +82,9 @@ class _BottomNavPageState extends State<BottomNavPage> {
         ),
       ),
     );
+  }
+
+  void fetchdata() {
+    context.read<HotelBloc>().add(FetchDataEvent());
   }
 }

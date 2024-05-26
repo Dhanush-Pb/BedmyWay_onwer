@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:hotelonwer/controller/bloc/hotel_bloc/bloc/hotel_bloc.dart';
 
 import 'package:hotelonwer/resources/components/coustmfields/bottm_sheet.dart';
@@ -70,7 +71,7 @@ class _AdddatapageState extends State<Adddatapage> {
                       fillColor: mycolor4,
                       keyboardType: TextInputType.multiline,
                       controller: descriptionController,
-                      maxLines: 6,
+                      maxLines: 3,
                       hintText: 'Enter hotel description',
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -114,7 +115,7 @@ class _AdddatapageState extends State<Adddatapage> {
                             value: roomtype,
                             items: const [
                               'Single room',
-                              'double room',
+                              'Double room',
                               'Deluxe room',
                               'Studio room'
                             ],
@@ -136,15 +137,16 @@ class _AdddatapageState extends State<Adddatapage> {
                     const SizedBox(height: 20.0),
                     CustomTextField2(
                       fillColor: mycolor4,
-                      keyboardType: TextInputType.number,
-                      controller: priceController,
-                      hintText: 'Enter price',
+                      keyboardType: TextInputType.name,
+                      controller: inceptionYearController,
+                      hintText: 'Adress & landmark',
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter price';
+                          return 'Please enter a correct Adress';
                         }
                         return null;
                       },
+                      maxLines: 3,
                     ),
                     const SizedBox(height: 20.0),
                     Row(
@@ -169,12 +171,12 @@ class _AdddatapageState extends State<Adddatapage> {
                         Expanded(
                           child: CustomTextField2(
                             fillColor: mycolor4,
-                            keyboardType: TextInputType.name,
-                            controller: inceptionYearController,
-                            hintText: 'Adress & landmark',
+                            keyboardType: TextInputType.number,
+                            controller: priceController,
+                            hintText: 'Enter price',
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'Please enter establishment year';
+                                return 'Please enter price';
                               }
                               return null;
                             },
@@ -281,6 +283,7 @@ class _AdddatapageState extends State<Adddatapage> {
                               'wifi': selectedWifiAvailability,
                               'contact':
                                   contactcontroller.text.toString().trim(),
+                              'Room': roomtype,
                               'images': '',
                               'coverimage': '',
                               'tourimage': '',

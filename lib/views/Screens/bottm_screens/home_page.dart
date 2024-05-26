@@ -3,6 +3,9 @@ import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hotelonwer/controller/bloc/hotel_bloc/bloc/hotel_bloc.dart';
+import 'package:hotelonwer/views/Screens/bottm_screens/data_showing.dart';
 
 import 'package:hotelonwer/views/Screens/loginscrren/singup.dart';
 import 'package:hotelonwer/resources/components/coustmfields/logout_information.dart';
@@ -23,6 +26,8 @@ class _HomepageState extends State<Homepage> {
   void initState() {
     super.initState();
     currentUser = FirebaseAuth.instance.currentUser;
+    Datalisttpage();
+    fetchdata();
   }
 
   @override
@@ -136,5 +141,9 @@ class _HomepageState extends State<Homepage> {
         child: Text('helloo'),
       ),
     );
+  }
+
+  void fetchdata() {
+    context.read<HotelBloc>().add(FetchDataEvent());
   }
 }

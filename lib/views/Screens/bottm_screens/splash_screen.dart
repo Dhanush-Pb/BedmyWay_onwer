@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hotelonwer/controller/bloc/hotel_bloc/bloc/hotel_bloc.dart';
 import 'package:hotelonwer/views/Screens/bottm_screens/data_showing.dart';
 
 import 'package:hotelonwer/views/Screens/loginscrren/loginpage.dart';
@@ -23,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     Datalisttpage();
 
-    // TODO: implement initState
+    fetchdata();
     super.initState();
   }
 
@@ -73,5 +74,9 @@ class _SplashScreenState extends State<SplashScreen> {
         MaterialPageRoute(builder: (context) => const Logingpage()),
       );
     });
+  }
+
+  void fetchdata() {
+    context.read<HotelBloc>().add(FetchDataEvent());
   }
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,6 +10,8 @@ import 'package:meta/meta.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
+
+String authuseid = '';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -38,13 +42,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         );
         final User? user = userCredential.user;
         if (user != null) {
+          authuseid = user.uid;
           await FirebaseFirestore.instance
               .collection('users')
               .doc(user.uid)
               .set({
             'name': event.usermodel.name,
             'email': event.usermodel.email,
-            'uid': event.usermodel.Uid,
+            'uid': user.uid,
             'phone': event.usermodel.phone,
             'cratedate': DateTime.now(),
           });

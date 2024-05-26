@@ -46,4 +46,28 @@ class Uploadpathimages extends HotelEvent {
   Uploadpathimages({required this.pathimages});
 }
 
+class Repalaceimages extends HotelEvent {
+  List<Uint8List> roomimages;
+  final String id;
+  Repalaceimages(this.roomimages, this.id);
+}
+
+class ReplaceCoverimages extends HotelEvent {
+  List<Uint8List> Coverimages;
+  final String id;
+  ReplaceCoverimages(this.Coverimages, this.id);
+}
+
+class ReplacePathimage extends HotelEvent {
+  List<Uint8List> Pathimages;
+  final String id;
+  ReplacePathimage(this.Pathimages, this.id);
+}
+
+class ReplaceTourimage extends HotelEvent {
+  List<Uint8List> tourimage;
+  final String id;
+  ReplaceTourimage(this.tourimage, this.id);
+}
+
 class FetchDataEvent extends HotelEvent {}

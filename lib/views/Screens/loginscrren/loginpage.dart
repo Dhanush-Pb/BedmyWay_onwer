@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hotelonwer/controller/bloc/hotel_bloc/bloc/hotel_bloc.dart';
 
 import 'package:hotelonwer/views/Screens/loginscrren/singup.dart';
 
@@ -212,6 +213,7 @@ class _LogingpageState extends State<Logingpage> {
                       onPressed: () async {
                         await Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => SignupPage()));
+                        fetchdata();
                         // Navigate to sign-up page
                       },
                       child: Row(
@@ -240,5 +242,9 @@ class _LogingpageState extends State<Logingpage> {
         },
       ),
     );
+  }
+
+  void fetchdata() {
+    context.read<HotelBloc>().add(FetchDataEvent());
   }
 }

@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hotelonwer/Utils/alert_box.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:hotelonwer/views/Screens/imagescreens/coverimage_add.dart';
 import 'package:hotelonwer/resources/components/coustmfields/theame.dart';
@@ -21,16 +22,34 @@ class Hotelimageanddata extends StatefulWidget {
 }
 
 class _HotelimageanddataState extends State<Hotelimageanddata> {
+  void _removeImage(int index) {
+    setState(() {
+      widget.selectedImages.removeAt(index);
+    });
+  }
+
+  void _selectImagesAgain() async {
+    final List<XFile>? newImages = await ImagePicker().pickMultiImage();
+    if (newImages != null) {
+      setState(() {
+        widget.selectedImages.addAll(newImages);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(
-            Icons.arrow_back,
-            color: Color.fromARGB(0, 255, 255, 255),
+            Icons.add_photo_alternate_rounded,
+            size: 35,
+            color: Color.fromARGB(255, 255, 255, 255),
           ),
-          onPressed: () {},
+          onPressed: () {
+            _selectImagesAgain();
+          },
         ),
         backgroundColor: mycolor3,
       ),
@@ -64,30 +83,55 @@ class _HotelimageanddataState extends State<Hotelimageanddata> {
                           ),
                           itemCount: widget.selectedImages.length,
                           itemBuilder: (context, index) {
-                            return GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ImageZoomView(
-                                      imageFile: File(
-                                        widget.selectedImages[index].path,
+                            return Stack(
+                              fit: StackFit.expand,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => ImageZoomView(
+                                          imageFile: File(
+                                            widget.selectedImages[index].path,
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: Material(
+                                    elevation: 15,
+                                    color: Colors.transparent,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: Image.file(
+                                        File(widget.selectedImages[index].path),
+                                        fit: BoxFit.cover,
                                       ),
                                     ),
                                   ),
-                                );
-                              },
-                              child: Material(
-                                elevation: 15,
-                                color: Colors.transparent,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Image.file(
-                                    File(widget.selectedImages[index].path),
-                                    fit: BoxFit.cover,
+                                ),
+                                Positioned(
+                                  top: 5,
+                                  right: 5,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      _removeImage(index);
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.all(4),
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Colors.white,
+                                      ),
+                                      child: Icon(
+                                        Icons.close,
+                                        color: Colors.red,
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
+                              ],
                             );
                           },
                         ),
@@ -99,7 +143,10 @@ class _HotelimageanddataState extends State<Hotelimageanddata> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          if (widget.selectedImages.isNotEmpty) {
+          if (widget.selectedImages.length > 10) {
+            CustomErrorDialog.show(context,
+                'Please limit your selection to 10 images &maximum size up to 250 KB');
+          } else if (widget.selectedImages.length <= 10) {
             List<Uint8List> imagesDatas = [];
             for (var image in widget.selectedImages) {
               Uint8List imageDatas = await image.readAsBytes();
@@ -107,10 +154,10 @@ class _HotelimageanddataState extends State<Hotelimageanddata> {
             }
             // Dispatch an event to upload multiple images
             context.read<HotelBloc>().add(UploadHotelImage(imagesDatas));
-          }
 
-          Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => const Coverimageadd()));
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const Coverimageadd()));
+          }
         },
         backgroundColor: mycolor3,
         child: Icon(
