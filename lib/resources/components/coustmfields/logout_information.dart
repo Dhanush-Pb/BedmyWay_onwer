@@ -28,6 +28,7 @@ showLogoutConfirmationDialog(BuildContext context) {
               final authBloc = BlocProvider.of<AuthBloc>(context);
               authBloc.add(logoutevent());
               signOut(context);
+              authBloc.add(GoogleSignOutEvent());
               Navigator.of(context).pushAndRemoveUntil(
                 buildPageTransition(
                   // ignore: prefer_const_constructors

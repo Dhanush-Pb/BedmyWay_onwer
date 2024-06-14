@@ -6,6 +6,7 @@ import 'package:hotelonwer/controller/bloc/hotel_bloc/bloc/hotel_bloc.dart';
 import 'package:hotelonwer/resources/components/coustmfields/bottm_sheet2.dart';
 import 'package:hotelonwer/resources/components/coustmfields/theame.dart';
 import 'package:lottie/lottie.dart';
+import 'package:shimmer/shimmer.dart';
 
 class Datalisttpage extends StatefulWidget {
   const Datalisttpage({Key? key}) : super(key: key);
@@ -75,7 +76,7 @@ class _DatalisttpageState extends State<Datalisttpage> {
                               for (final imageUrl in pathImageUrls)
                                 Padding(
                                   padding: const EdgeInsets.only(
-                                      top: 0, right: 20, left: 20, bottom: 15),
+                                      top: 0, right: 12, left: 12, bottom: 12),
                                   child: GestureDetector(
                                     onTap: () {
                                       showHotelDetailsBottomSheet(
@@ -94,6 +95,7 @@ class _DatalisttpageState extends State<Datalisttpage> {
                                       );
                                     },
                                     child: Container(
+                                      width: MediaQuery.of(context).size.width,
                                       height: 130,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.only(
@@ -114,75 +116,125 @@ class _DatalisttpageState extends State<Datalisttpage> {
                                       child: Row(
                                         children: [
                                           Padding(
-                                            padding:
-                                                const EdgeInsets.only(left: 10),
-                                            child: ClipRRect(
-                                              borderRadius: BorderRadius.only(
+                                              padding: const EdgeInsets.only(
+                                                  left: 10),
+                                              child: ClipRRect(
+                                                borderRadius: BorderRadius.only(
                                                   topRight: Radius.circular(8),
                                                   bottomLeft:
                                                       Radius.circular(8),
                                                   bottomRight:
                                                       Radius.circular(8),
-                                                  topLeft: Radius.circular(2)),
-                                              child: Image.network(
-                                                imageUrl,
-                                                width: 120,
-                                                height: 110,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(width: 10),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: [
-                                              SizedBox(height: 35),
-                                              Text(
-                                                hotel['name'] ?? '',
-                                                style: TextStyle(
-                                                    fontSize: 15,
-                                                    fontWeight:
-                                                        FontWeight.w700),
-                                              ),
-                                              SizedBox(height: 10),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Icon(
-                                                      Icons
-                                                          .location_on_outlined,
-                                                      color: Mycolor1),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            right: 15),
-                                                    child: Container(
-                                                      constraints:
-                                                          BoxConstraints(
-                                                              minWidth: 0),
-                                                      child: Text(
-                                                        '${hotel['locaton']}',
-                                                        style: TextStyle(
-                                                          fontSize: 14,
-                                                          color: const Color
-                                                              .fromARGB(
-                                                              255, 80, 80, 80),
+                                                  topLeft: Radius.circular(2),
+                                                ),
+                                                child: SizedBox(
+                                                  width: 120,
+                                                  height: 110,
+                                                  child: Image.network(
+                                                    imageUrl,
+                                                    fit: BoxFit.cover,
+                                                    loadingBuilder: (
+                                                      BuildContext context,
+                                                      Widget child,
+                                                      ImageChunkEvent?
+                                                          loadingProgress,
+                                                    ) {
+                                                      if (loadingProgress ==
+                                                          null) {
+                                                        // Image successfully loaded
+                                                        return child;
+                                                      } else {
+                                                        // Display shimmer effect while loading
+                                                        return Shimmer
+                                                            .fromColors(
+                                                          baseColor:
+                                                              Colors.grey[300]!,
+                                                          highlightColor:
+                                                              Colors.grey[100]!,
+                                                          child: Container(
+                                                            color: Colors.white,
+                                                            width: 120,
+                                                            height: 110,
+                                                          ),
+                                                        );
+                                                      }
+                                                    },
+                                                    errorBuilder: (
+                                                      BuildContext context,
+                                                      Object exception,
+                                                      StackTrace? stackTrace,
+                                                    ) {
+                                                      // Display shimmer effect on error
+                                                      return Shimmer.fromColors(
+                                                        baseColor:
+                                                            Colors.grey[300]!,
+                                                        highlightColor:
+                                                            Colors.grey[100]!,
+                                                        child: Container(
+                                                          color: Colors.white,
+                                                          width: 120,
+                                                          height: 110,
                                                         ),
-                                                        maxLines: 1,
-                                                        overflow:
-                                                            TextOverflow.clip,
+                                                      );
+                                                    },
+                                                  ),
+                                                ),
+                                              )),
+                                          SizedBox(width: 10),
+                                          Expanded(
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                SizedBox(height: 35),
+                                                Text(
+                                                  hotel['name'] ?? '',
+                                                  style: TextStyle(
+                                                    fontSize: 15,
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
+                                                  maxLines:
+                                                      1, // Limits the text to a single line
+                                                  overflow: TextOverflow
+                                                      .ellipsis, // Ellipsis (...) indicates overflow
+                                                ),
+                                                SizedBox(height: 10),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Icon(
+                                                        Icons
+                                                            .location_on_outlined,
+                                                        color: Mycolor1),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              right: 15),
+                                                      child: Container(
+                                                        constraints:
+                                                            BoxConstraints(
+                                                                minWidth: 0),
+                                                        child: Text(
+                                                          '${hotel['locaton']}',
+                                                          style: TextStyle(
+                                                            fontSize: 14,
+                                                            color: const Color
+                                                                .fromARGB(255,
+                                                                80, 80, 80),
+                                                          ),
+                                                          maxLines: 1,
+                                                          overflow:
+                                                              TextOverflow.clip,
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ],
                                       ),

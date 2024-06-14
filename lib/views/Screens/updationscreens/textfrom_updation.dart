@@ -1,16 +1,15 @@
 import 'dart:developer';
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelonwer/Utils/snackbar_page.dart';
 import 'package:hotelonwer/controller/bloc/hotel_bloc/bloc/hotel_bloc.dart';
 import 'package:hotelonwer/resources/components/coustmfields/Bottm_page.dart';
-import 'package:hotelonwer/resources/components/coustmfields/bottm_sheet.dart';
+
 import 'package:hotelonwer/resources/components/coustmfields/dropdown_button.dart';
 import 'package:hotelonwer/resources/components/coustmfields/text_formfield2.dart';
 import 'package:hotelonwer/resources/components/coustmfields/theame.dart';
-import 'package:hotelonwer/views/Screens/imagescreens/coverimage_add.dart';
+
 import 'package:hotelonwer/views/Screens/imagescreens/hotel_photos.dart';
 import 'package:hotelonwer/views/Screens/imagescreens/tour_photo.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
@@ -29,7 +28,7 @@ class _UpdateHoteldataState extends State<UpdateHoteldata> {
   String? selectedFoodAvailability;
   String? refundOption;
   String? roomType;
-
+  String? acoption;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController hotelNameController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
@@ -56,6 +55,7 @@ class _UpdateHoteldataState extends State<UpdateHoteldata> {
     selectedFoodAvailability = widget.hotel['foodoption'];
     refundOption = widget.hotel['Refundoption'];
     roomType = widget.hotel['Room'];
+    acoption = widget.hotel['acoption'];
   }
 
   @override
@@ -266,6 +266,29 @@ class _UpdateHoteldataState extends State<UpdateHoteldata> {
                           return null;
                         },
                       ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      CustomDropdownButton<String>(
+                        hintText: 'Food option',
+                        value: acoption,
+                        items: const ['Available', 'Non A/C'],
+                        onChanged: (value) {
+                          setState(() {
+                            acoption = value;
+                          });
+                        },
+                        validator: (value) {
+                          if (value == null) {
+                            return 'Please select AC availability';
+                          }
+                          return null;
+                        },
+                        dropdownStyle: const TextStyle(color: Colors.black),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -447,6 +470,7 @@ class _UpdateHoteldataState extends State<UpdateHoteldata> {
         'wifi': selectedWifiAvailability,
         'contact': contactController.text.toString().trim(),
         'Room': roomType,
+        'acoption': acoption,
       };
 
       context

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hotelonwer/controller/bloc/auth_bloc.dart';
 import 'package:hotelonwer/controller/bloc/hotel_bloc/bloc/hotel_bloc.dart';
 
 import 'package:hotelonwer/views/Screens/loginscrren/singup.dart';
 
-import 'package:hotelonwer/controller/bloc/auth_bloc.dart';
 import 'package:hotelonwer/resources/components/coustmfields/Bottm_page.dart';
 import 'package:hotelonwer/resources/components/coustmfields/google.dart';
 import 'package:hotelonwer/resources/components/coustmfields/theame.dart';
@@ -52,16 +52,18 @@ class _LogingpageState extends State<Logingpage> {
                         color: Color.fromARGB(255, 255, 255, 255),
                         fontWeight: FontWeight.w700),
                   ),
-                  backgroundColor: Color.fromARGB(255, 241, 23, 23),
+                  backgroundColor: Color.fromARGB(255, 180, 9, 9),
                   behavior: SnackBarBehavior.floating,
-                  margin: EdgeInsets.only(bottom: 675, left: 18, right: 18),
+                  margin: EdgeInsets.only(bottom: 15, left: 18, right: 18),
                   padding:
                       EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
                 ),
               );
             });
           } else if (state is Authloadin) {
-            const CircularProgressIndicator();
+            return Center(
+              child: CircularProgressIndicator(),
+            );
           }
           return Form(
             key: _formKey,
@@ -82,6 +84,8 @@ class _LogingpageState extends State<Logingpage> {
                     ),
                     GestureDetector(
                       onTap: () {
+                        BlocProvider.of<AuthBloc>(context)
+                            .add(GoogleSignInEvent());
                         signInWithGoogle(context);
                       },
                       child: Container(

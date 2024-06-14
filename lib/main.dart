@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:hotelonwer/controller/revnue/bloc/revanue_bloc.dart';
 
 import 'package:hotelonwer/views/Screens/bottm_screens/splash_screen.dart';
 
@@ -24,12 +25,12 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<AuthBloc>(
           create: (context) {
-            // Create an instance of checkloginevern event
             final checkLoginEvent = checkloginevern();
-            // Dispatch the event to AuthBloc
+
             return AuthBloc()..add(checkLoginEvent);
           },
         ),
+        BlocProvider<RevanueBloc>(create: (context) => RevanueBloc()),
         BlocProvider<HotelBloc>(create: (context) => HotelBloc()),
       ],
       child: MaterialApp(

@@ -27,7 +27,9 @@ class SignupPage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: mycolor5,
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+      ),
       body: BlocProvider(
         create: (context) => AuthBloc(),
         child: BlocListener<AuthBloc, AuthState>(

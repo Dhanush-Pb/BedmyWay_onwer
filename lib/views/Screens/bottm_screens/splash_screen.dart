@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelonwer/controller/bloc/hotel_bloc/bloc/hotel_bloc.dart';
+import 'package:hotelonwer/controller/revnue/bloc/revanue_bloc.dart';
 import 'package:hotelonwer/views/Screens/bottm_screens/data_showing.dart';
 
 import 'package:hotelonwer/views/Screens/loginscrren/loginpage.dart';
@@ -23,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     Datalisttpage();
-
+    context.read<RevanueBloc>().add(Revenuefetch());
     fetchdata();
     super.initState();
   }

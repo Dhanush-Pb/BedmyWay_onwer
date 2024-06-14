@@ -222,7 +222,7 @@
 
 // ignore_for_file: unnecessary_cast
 import 'dart:developer';
-import 'dart:io';
+
 import 'dart:typed_data';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -266,6 +266,8 @@ class HotelBloc extends Bloc<HotelEvent, HotelState> {
     });
   }
 
+  String get hotelDocumentId => _collectionid;
+
   Future<String> _getUserId() async {
     User? user = FirebaseAuth.instance.currentUser;
     if (user == null) {
@@ -290,7 +292,7 @@ class HotelBloc extends Bloc<HotelEvent, HotelState> {
       log('Hotel data added with ID: $_collectionid');
       emit(HotelDataAdded(id: docRef.id));
     } catch (e) {
-      log('Firebase error: ${e.toString()}');
+      log('error: ${e.toString()}');
       emit(HotelDataError(error: e.toString()));
     }
   }
