@@ -38,10 +38,10 @@ class SignupPage extends StatelessWidget {
               _navigateToBottomNavPage(context);
             } else if (state is AuthenticateError) {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
+                SnackBar(
                   duration: Duration(seconds: 2),
                   behavior: SnackBarBehavior.floating,
-                  backgroundColor: Colors.red,
+                  backgroundColor: Mycolor1,
                   content: Text(
                       "The email address is already in use by another account."),
                 ),
@@ -118,7 +118,7 @@ class SignupPage extends StatelessWidget {
                         IntlPhoneField(
                           decoration: InputDecoration(
                             filled: true,
-                            fillColor: Colors.white,
+                            fillColor: mycolor4,
                             labelText: 'Phone',
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10)),
@@ -157,9 +157,9 @@ class SignupPage extends StatelessWidget {
                               const Size(150.0, 35.0),
                             ),
                           ),
-                          child: const Text(
+                          child: Text(
                             'Register',
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: mycolor4),
                           ),
                         ),
                         const SizedBox(height: 15),

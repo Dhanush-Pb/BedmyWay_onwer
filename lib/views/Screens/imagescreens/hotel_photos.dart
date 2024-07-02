@@ -63,7 +63,7 @@ class _HotelroomreplceState extends State<Hotelroomreplce> {
             style: TextStyle(
                 color: mycolor5, fontSize: 14, fontWeight: FontWeight.w600),
           ),
-          backgroundColor: mycolor3,
+          backgroundColor: Mycolor1,
           leading: IconButton(
             onPressed: _selectreplceroomimages,
             icon: Icon(Icons.add_photo_alternate_outlined, color: mycolor4),
@@ -173,7 +173,7 @@ class _HotelroomreplceState extends State<Hotelroomreplce> {
                                 color: Colors.grey.withOpacity(0.5),
                                 child: Icon(
                                   Icons.error,
-                                  color: Colors.red,
+                                  color: Mycolor1,
                                   size: 40.0,
                                 ),
                               );

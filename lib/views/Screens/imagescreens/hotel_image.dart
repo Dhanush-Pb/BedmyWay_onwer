@@ -66,10 +66,10 @@ class _HotelimageanddataState extends State<Hotelimageanddata> {
               ),
               Expanded(
                 child: widget.selectedImages.isEmpty
-                    ? const Center(
+                    ? Center(
                         child: Text(
                           'No images selected',
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(color: mycolor4),
                         ),
                       )
                     : Padding(
@@ -122,11 +122,11 @@ class _HotelimageanddataState extends State<Hotelimageanddata> {
                                       padding: EdgeInsets.all(4),
                                       decoration: BoxDecoration(
                                         shape: BoxShape.circle,
-                                        color: Colors.white,
+                                        color: mycolor4,
                                       ),
                                       child: Icon(
                                         Icons.close,
-                                        color: Colors.red,
+                                        color: Mycolor1,
                                       ),
                                     ),
                                   ),

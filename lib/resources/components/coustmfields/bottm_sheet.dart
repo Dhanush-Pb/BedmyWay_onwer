@@ -28,7 +28,7 @@ class CustomBottomSheet {
                       style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w500,
-                          color: Colors.white),
+                          color: mycolor4),
                     ),
                     Text(
                       'Maximum 5-10 images required for your hotel room.Each image should be around 250 KB in size.',
@@ -44,13 +44,13 @@ class CustomBottomSheet {
                   onTap: () {
                     selectImages(context);
                   },
-                  child: const CircleAvatar(
+                  child: CircleAvatar(
                     radius: 60,
                     backgroundColor: Colors.blue,
                     child: Icon(
                       Icons.add_photo_alternate,
                       size: 50,
-                      color: Colors.white,
+                      color: mycolor4,
                     ),
                   ),
                 ),

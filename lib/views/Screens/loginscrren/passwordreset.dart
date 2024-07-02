@@ -74,9 +74,9 @@ class Passwordreset extends StatelessWidget {
                           .add(ForgotPasswordEvent(email: email));
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
+                        SnackBar(
                           behavior: SnackBarBehavior.floating,
-                          backgroundColor: Colors.red,
+                          backgroundColor: Mycolor1,
                           duration: Duration(seconds: 1),
                           content: Text('Please enter a valid email'),
                         ),
@@ -88,14 +88,14 @@ class Passwordreset extends StatelessWidget {
                     width: 350,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
-                      color: const Color.fromARGB(255, 9, 126, 91),
+                      color: Color.fromARGB(255, 9, 126, 91),
                     ),
-                    child: const Row(
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
                           Icons.restore,
-                          color: Colors.white,
+                          color: mycolor4,
                         ),
                         SizedBox(
                           width: 10,
@@ -103,7 +103,7 @@ class Passwordreset extends StatelessWidget {
                         Text(
                           'Reset password',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: mycolor4,
                             fontWeight: FontWeight.w600,
                           ),
                         ),

@@ -64,6 +64,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '960391654911',
     projectId: 'hotelonwer-2f95e',
     storageBucket: 'hotelonwer-2f95e.appspot.com',
+    androidClientId: '960391654911-ahs4tnu76q3u4cf9jvke9qoppgbqcq5g.apps.googleusercontent.com',
+    iosClientId: '960391654911-l1cp5c202tfdbb0a78o85k9kjke0si54.apps.googleusercontent.com',
     iosBundleId: 'com.example.hotelonwer',
   );
 
@@ -73,6 +75,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '960391654911',
     projectId: 'hotelonwer-2f95e',
     storageBucket: 'hotelonwer-2f95e.appspot.com',
+    androidClientId: '960391654911-ahs4tnu76q3u4cf9jvke9qoppgbqcq5g.apps.googleusercontent.com',
+    iosClientId: '960391654911-l1cp5c202tfdbb0a78o85k9kjke0si54.apps.googleusercontent.com',
     iosBundleId: 'com.example.hotelonwer',
   );
 
@@ -85,4 +89,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'hotelonwer-2f95e.appspot.com',
     measurementId: 'G-3KB4TQXXKK',
   );
+
 }

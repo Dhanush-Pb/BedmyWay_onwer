@@ -98,7 +98,7 @@ class _CoverimageaddState extends State<Coverimageadd> {
             ),
           ],
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: mycolor4,
         behavior: SnackBarBehavior.floating,
         margin: const EdgeInsets.only(bottom: 15, left: 25, right: 25),
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
@@ -160,11 +160,11 @@ class _CoverimageaddState extends State<Coverimageadd> {
             child: Container(
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.red,
+                color: Mycolor1,
               ),
               child: Icon(
                 Icons.close,
-                color: Colors.white,
+                color: mycolor4,
               ),
             ),
           ),
@@ -179,12 +179,12 @@ class _CoverimageaddState extends State<Coverimageadd> {
       backgroundColor: mycolor5,
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          icon: Icon(Icons.arrow_back, color: mycolor4),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
-        backgroundColor: mycolor3,
+        backgroundColor: Mycolor1,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -216,17 +216,17 @@ class _CoverimageaddState extends State<Coverimageadd> {
                             height: 80,
                             width: double.infinity,
                             color: mycolor3,
-                            child: const Column(
+                            child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
                                   'Select cover image',
-                                  style: TextStyle(color: Colors.white),
+                                  style: TextStyle(color: mycolor4),
                                 ),
                                 SizedBox(height: 10),
                                 Icon(
                                   Icons.image_outlined,
-                                  color: Colors.white,
+                                  color: mycolor4,
                                   size: 40,
                                 ),
                               ],
@@ -261,17 +261,17 @@ class _CoverimageaddState extends State<Coverimageadd> {
                             height: 80,
                             width: double.infinity,
                             color: mycolor3,
-                            child: const Column(
+                            child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
                                   'Select your hotel image',
-                                  style: TextStyle(color: Colors.white),
+                                  style: TextStyle(color: mycolor4),
                                 ),
                                 SizedBox(height: 10),
                                 Icon(
                                   Icons.image,
-                                  color: Colors.white,
+                                  color: mycolor4,
                                   size: 40,
                                 ),
                               ],
@@ -312,17 +312,17 @@ class _CoverimageaddState extends State<Coverimageadd> {
                             height: 80,
                             width: double.infinity,
                             color: mycolor3,
-                            child: const Column(
+                            child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
                                   'Select nearest tourist place images',
-                                  style: TextStyle(color: Colors.white),
+                                  style: TextStyle(color: mycolor4),
                                 ),
                                 SizedBox(height: 10),
                                 Icon(
                                   Icons.beach_access_outlined,
-                                  color: Colors.white,
+                                  color: mycolor4,
                                   size: 40,
                                 ),
                               ],
@@ -349,11 +349,11 @@ class _CoverimageaddState extends State<Coverimageadd> {
                 child: SizedBox(
                   height: 50,
                   width: double.infinity,
-                  child: const Center(
+                  child: Center(
                     child: Text(
                       'Save your hotel details',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: mycolor4,
                         fontWeight: FontWeight.w600,
                         fontSize: 17,
                       ),

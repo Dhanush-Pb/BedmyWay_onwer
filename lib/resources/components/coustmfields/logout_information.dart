@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hotelonwer/resources/components/coustmfields/theame.dart';
 import 'package:hotelonwer/views/Screens/loginscrren/loginpage.dart';
 
 import 'package:hotelonwer/controller/bloc/auth_bloc.dart';
@@ -39,9 +40,9 @@ showLogoutConfirmationDialog(BuildContext context) {
                 (Route<dynamic> route) => false,
               );
             },
-            child: const Text(
+            child: Text(
               'Logout',
-              style: TextStyle(color: Colors.red),
+              style: TextStyle(color: Mycolor1),
             ),
           ),
         ],

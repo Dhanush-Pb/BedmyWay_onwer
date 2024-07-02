@@ -1,5 +1,10 @@
+// ignore_for_file: avoid_print
+
+import 'dart:async';
+import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
 
 part 'revanue_event.dart';
@@ -9,86 +14,79 @@ class RevanueBloc extends Bloc<RevanueEvent, RevanueState> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   RevanueBloc() : super(RevanueInitial()) {
-    on<Revenuefetch>(_onRevenueFetch);
+    on<RevanueEvent>((event, emit) async {
+      if (event is Revenuefetch) {
+        await fetchRevenueData(event, emit);
+      }
+    });
+  }
+  Future<String> _getUserId() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      throw FirebaseAuthException(
+        code: 'user-not-authenticated',
+        message: 'User not authenticated',
+      );
+    }
+    return user.uid;
   }
 
-  Future<void> _onRevenueFetch(
-      Revenuefetch event, Emitter<RevanueState> emit) async {
+  Future<void> fetchRevenueData(
+    Revenuefetch event,
+    Emitter<RevanueState> emit,
+  ) async {
+    emit(Bookdataloading());
+
     try {
-      QuerySnapshot<Map<String, dynamic>> userSnapshot =
-          await _firestore.collection("ROOM").get();
+      final String userId = await _getUserId();
+      QuerySnapshot hotelSnapshot = await _firestore
+          .collection('users')
+          .doc(userId)
+          .collection('hoteldata')
+          .get();
 
-      print("User documents fetched: ${userSnapshot.docs.length}");
+      //! section of the bokking details fetching area
+      QuerySnapshot userSnapshot =
+          await _firestore.collection('userSide').get();
+      log('doc count is => ${userSnapshot.docs.length}');
 
-      if (userSnapshot.docs.isEmpty) {
-        print("No users found in the 'Roombook' collection.");
-        return;
-      }
-
-      List<Map<String, dynamic>> bookedRooms = [];
+      List<Map<String, dynamic>> hotels = [];
 
       for (var userDoc in userSnapshot.docs) {
-        print("Fetching bookings for user: ${userDoc.id}");
-        QuerySnapshot<Map<String, dynamic>> bookedRoomsSnapshot =
-            await userDoc.reference.collection("Bookedroom").get();
+        print('Fetching data for booking ID: ${userDoc.id}');
 
-        print(
-            "Bookings fetched for user ${userDoc.id}: ${bookedRoomsSnapshot.docs.length}");
+        QuerySnapshot bookedhotelSnapshot = await _firestore
+            .collection('userSide')
+            .doc(userDoc.id)
+            .collection('bookedhotels')
+            .get();
 
-        if (bookedRoomsSnapshot.docs.isEmpty) {
-          print("No bookings found for user: ${userDoc.id}");
-        } else {
-          print("Bookings found for user: ${userDoc.id}");
-        }
+        for (var hotelDoc in bookedhotelSnapshot.docs) {
+          //log(hotelDoc['hotelDocId']);
+          Map<String, dynamic> data = hotelDoc.data() as Map<String, dynamic>;
+          data['id'] = hotelDoc.id;
 
-        for (var roomDoc in bookedRoomsSnapshot.docs) {
-          var roomData = roomDoc.data();
-          roomData['id'] = roomDoc.id;
-          bookedRooms.add(roomData);
-          print("Room Document ID: ${roomDoc.id}, Data: ${roomData}");
+          for (var userhotel in hotelSnapshot.docs) {
+            if (hotelDoc['hotelDocId'] == userhotel.id) {
+              hotels.add(data);
+              // log(data['hotelDocId']);
+            }
+          }
+
+          // log('Hotel ID: ${data['hotelDocId']}');
+          // data.forEach((key, value) {
+          //   log('$key: $value');
+          // });
         }
       }
 
-      if (bookedRooms.isEmpty) {
-        print("No bookings found across all users.");
+      if (hotels.isNotEmpty) {
+        emit(BookedDatafetched(hotels: hotels));
       } else {
-        print("Total bookings fetched: ${bookedRooms.length}");
+        emit(BookdataError(error: 'No booking data found'));
       }
     } catch (e) {
-      print("Error fetching booking data: $e");
+      emit(BookdataError(error: e.toString()));
     }
   }
 }
-
-
-
-  // Future<void> _getHotelData(Emitter<HoteldataState> emit) async {
-  //   log('Fetching hotel data...');
-  //   emit(Hoteldataloading());
-  //   try {
-  //     QuerySnapshot userSnapshot = await _firestore.collection('users').get();
-
-  //     List<Map<String, dynamic>> hotels = [];
-
-  //     for (var userDoc in userSnapshot.docs) {
-  //       QuerySnapshot hotelSnapshot = await _firestore
-  //           .collection('users')
-  //           .doc(userDoc.id)
-  //           .collection('hoteldata')
-  //           .get();
-
-  //       for (var hotelDoc in hotelSnapshot.docs) {
-  //         Map<String, dynamic> data = hotelDoc.data() as Map<String, dynamic>;
-  //         data['id'] = hotelDoc.id;
-  //         hotels.add(data);
-  //       }
-  //     }
-
-  //     if (hotels.isNotEmpty) {
-  //       emit(HotelDatafetched(hotels: hotels));
-  //     } else {
-  //       emit(HotelDataerror(error: 'No hotel data found'));
-  //     }
-  //   } catch (e) {
-  //     emit(HotelDataerror(error: e.toString()));
-  //   // }

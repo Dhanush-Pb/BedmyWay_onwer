@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, no_leading_underscores_for_local_identifiers, unnecessary_null_comparison
 
 import 'dart:developer';
 import 'dart:typed_data';
@@ -107,7 +107,7 @@ class _TouristImageReplaceState extends State<TouristImageReplace> {
                 label: Text('New imges')),
           )
         ],
-        backgroundColor: mycolor3,
+        backgroundColor: Mycolor1,
         leading: IconButton(
             onPressed: () {
               setState(() {
@@ -239,7 +239,7 @@ class _TouristImageReplaceState extends State<TouristImageReplace> {
                                         color: Colors.grey.withOpacity(0.5),
                                         child: Icon(
                                           Icons.error,
-                                          color: Colors.red,
+                                          color: Mycolor1,
                                           size: 40.0,
                                         ),
                                       );

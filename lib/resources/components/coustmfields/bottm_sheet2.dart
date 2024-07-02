@@ -123,7 +123,7 @@ class _HotelDetailsBottomSheetState extends State<HotelDetailsBottomSheet> {
                         icon: Icon(
                           Icons.edit_note_outlined,
                           size: 30,
-                          color: Colors.white,
+                          color: mycolor4,
                         )),
                   ),
                   Container(
@@ -137,7 +137,7 @@ class _HotelDetailsBottomSheetState extends State<HotelDetailsBottomSheet> {
                         icon: Icon(
                           Icons.delete_outline,
                           size: 30,
-                          color: Colors.white,
+                          color: mycolor4,
                         )),
                   )
                 ],

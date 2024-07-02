@@ -38,11 +38,9 @@ class _DatalisttpageState extends State<Datalisttpage> {
           padding: const EdgeInsets.only(left: 18),
           child: Text('My Hotels',
               style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600)),
+                  color: mycolor4, fontSize: 18, fontWeight: FontWeight.w600)),
         ),
-        backgroundColor: mycolor3,
+        backgroundColor: Mycolor1,
       ),
       body: BlocConsumer<HotelBloc, HotelState>(
         listener: (context, state) {},
@@ -103,7 +101,7 @@ class _DatalisttpageState extends State<Datalisttpage> {
                                             bottomLeft: Radius.circular(10),
                                             bottomRight: Radius.circular(10),
                                             topLeft: Radius.circular(2)),
-                                        color: Colors.white,
+                                        color: mycolor4,
                                         boxShadow: [
                                           BoxShadow(
                                             color: Colors.grey.withOpacity(0.5),
@@ -152,7 +150,7 @@ class _DatalisttpageState extends State<Datalisttpage> {
                                                           highlightColor:
                                                               Colors.grey[100]!,
                                                           child: Container(
-                                                            color: Colors.white,
+                                                            color: mycolor4,
                                                             width: 120,
                                                             height: 110,
                                                           ),
@@ -171,7 +169,7 @@ class _DatalisttpageState extends State<Datalisttpage> {
                                                         highlightColor:
                                                             Colors.grey[100]!,
                                                         child: Container(
-                                                          color: Colors.white,
+                                                          color: mycolor4,
                                                           width: 120,
                                                           height: 110,
                                                         ),

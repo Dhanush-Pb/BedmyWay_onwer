@@ -68,7 +68,7 @@ class _UpdateHoteldataState extends State<UpdateHoteldata> {
           style: TextStyle(
               color: mycolor5, fontSize: 15, fontWeight: FontWeight.w600),
         ),
-        backgroundColor: mycolor3,
+        backgroundColor: Mycolor1,
         leading: IconButton(
           onPressed: () {
             setState(() {
@@ -81,7 +81,7 @@ class _UpdateHoteldataState extends State<UpdateHoteldata> {
               ? Icon(Icons
                   .photo_library_outlined) // Display photo library icon if _istaped is true
               : Icon(Icons.arrow_back), // Otherwise, display arrow back icon
-          color: Colors.white, // Assuming mycolor4 is white for simplicity
+          color: mycolor4, // Assuming mycolor4 is white for simplicity
         ),
       ),
       backgroundColor: mycolor5,
@@ -248,7 +248,7 @@ class _UpdateHoteldataState extends State<UpdateHoteldata> {
                       IntlPhoneField(
                         decoration: InputDecoration(
                           filled: true,
-                          fillColor: Colors.white,
+                          fillColor: mycolor4,
                           labelText: 'Phone',
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -351,12 +351,12 @@ class _UpdateHoteldataState extends State<UpdateHoteldata> {
                             ),
                             elevation: 15,
                           ),
-                          child: const Text(
+                          child: Text(
                             'Update',
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 15,
-                              color: Colors.white,
+                              color: mycolor4,
                             ),
                           ),
                         ),
@@ -401,14 +401,14 @@ class _UpdateHoteldataState extends State<UpdateHoteldata> {
                                 color: Colors.blue),
                             child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
+                                children: [
                                   Icon(Icons.restore_outlined),
                                   SizedBox(
                                     width: 5,
                                   ),
                                   Text(
                                     'Replace your Room images',
-                                    style: TextStyle(color: Colors.white),
+                                    style: TextStyle(color: mycolor4),
                                   )
                                 ]),
                           ),
@@ -435,14 +435,14 @@ class _UpdateHoteldataState extends State<UpdateHoteldata> {
                                 color: Colors.blue),
                             child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
+                                children: [
                                   Icon(Icons.restore_outlined),
                                   SizedBox(
                                     width: 5,
                                   ),
                                   Text(
                                     'Replace your Tourist images',
-                                    style: TextStyle(color: Colors.white),
+                                    style: TextStyle(color: mycolor4),
                                   )
                                 ]),
                           ),

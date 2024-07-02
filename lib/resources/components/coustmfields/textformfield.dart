@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hotelonwer/resources/components/coustmfields/theame.dart';
 
 class CustomTextField extends StatelessWidget {
   final String hintText;
@@ -26,7 +27,7 @@ class CustomTextField extends StatelessWidget {
       validator: validator,
       decoration: InputDecoration(
         filled: true,
-        fillColor: Colors.white,
+        fillColor: mycolor4,
         hintText: hintText,
         border: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(10)),

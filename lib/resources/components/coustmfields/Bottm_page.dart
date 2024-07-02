@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelonwer/controller/bloc/hotel_bloc/bloc/hotel_bloc.dart';
+import 'package:hotelonwer/controller/fetchmsg/bloc/fetch_msgs_bloc.dart';
+import 'package:hotelonwer/controller/fetchmsg/bloc/fetch_msgs_event.dart';
 import 'package:hotelonwer/views/Screens/bottm_screens/add_details.dart';
 import 'package:hotelonwer/views/Screens/bottm_screens/data_showing.dart';
 import 'package:hotelonwer/views/Screens/bottm_screens/home_page.dart';
@@ -25,6 +27,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
 
   @override
   void initState() {
+    context.read<FetchMsgsBloc>().add(fetchmessages());
     fetchdata();
     super.initState();
   }
@@ -32,7 +35,6 @@ class _BottomNavPageState extends State<BottomNavPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: mycolor5,
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: Padding(
         padding:
@@ -43,8 +45,8 @@ class _BottomNavPageState extends State<BottomNavPage> {
             boxShadow: [
               BoxShadow(
                 color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 5,
-                blurRadius: 2,
+                spreadRadius: 2,
+                blurRadius: 1,
                 offset: Offset(0, 3),
               ),
             ],
@@ -53,7 +55,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
           ),
           child: GNav(
             gap: 8,
-            activeColor: Colors.white,
+            activeColor: mycolor4,
             iconSize: 24,
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
             duration: const Duration(milliseconds: 800),

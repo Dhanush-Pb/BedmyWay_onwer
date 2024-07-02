@@ -233,7 +233,7 @@ class _AdddatapageState extends State<Adddatapage> {
                   IntlPhoneField(
                     decoration: InputDecoration(
                       filled: true,
-                      fillColor: Colors.white,
+                      fillColor: mycolor4,
                       labelText: 'Phone',
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -334,12 +334,12 @@ class _AdddatapageState extends State<Adddatapage> {
                         ),
                         elevation: 15,
                       ),
-                      child: const Text(
+                      child: Text(
                         'Continue',
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 15,
-                          color: Colors.white,
+                          color: mycolor4,
                         ),
                       ),
                     ),

@@ -128,7 +128,7 @@ class _LogingpageState extends State<Logingpage> {
                       controller: _emailController,
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: Colors.white,
+                        fillColor: mycolor4,
                         prefixIcon: const Icon(Icons.mail_outline_outlined),
                         hintText: 'Email',
                         hintStyle: const TextStyle(
@@ -155,7 +155,7 @@ class _LogingpageState extends State<Logingpage> {
                     TextFormField(
                       controller: _passwordController,
                       decoration: InputDecoration(
-                        fillColor: Colors.white,
+                        fillColor: mycolor4,
                         filled: true,
                         prefixIcon: const Icon(Icons.visibility_off),
                         hintText: 'Password',
@@ -197,13 +197,13 @@ class _LogingpageState extends State<Logingpage> {
                           borderRadius: BorderRadius.circular(8),
                           color: Color.fromARGB(255, 13, 53, 138),
                         ),
-                        child: const Row(
+                        child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
                               'Sign in',
                               style: TextStyle(
-                                color: Colors.white,
+                                color: mycolor4,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),

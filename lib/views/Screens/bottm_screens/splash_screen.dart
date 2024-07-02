@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelonwer/controller/bloc/hotel_bloc/bloc/hotel_bloc.dart';
+import 'package:hotelonwer/controller/fetchmsg/bloc/fetch_msgs_bloc.dart';
+import 'package:hotelonwer/controller/fetchmsg/bloc/fetch_msgs_event.dart';
 import 'package:hotelonwer/controller/revnue/bloc/revanue_bloc.dart';
 import 'package:hotelonwer/views/Screens/bottm_screens/data_showing.dart';
 
@@ -79,5 +81,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void fetchdata() {
     context.read<HotelBloc>().add(FetchDataEvent());
+    context.read<FetchMsgsBloc>().add(fetchmessages());
   }
 }
