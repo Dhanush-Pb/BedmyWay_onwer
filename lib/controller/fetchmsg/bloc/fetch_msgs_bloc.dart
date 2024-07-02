@@ -34,7 +34,9 @@ class FetchMsgsBloc extends Bloc<FetchMsgsEvent, FetchMsgsState> {
           await _firestore.collection('userSide').get();
 
       List<Map<String, dynamic>> messages = [];
-      Set<String> seenHotelIds = {};
+      Set<String> uniqueMessages =
+          {}; // To track unique user-hotel combinations
+
       for (var userDoc in userSnapshot.docs) {
         print('Fetching messages for receiverId ID: ${userDoc.id}');
 
@@ -48,22 +50,27 @@ class FetchMsgsBloc extends Bloc<FetchMsgsEvent, FetchMsgsState> {
           Map<String, dynamic> data = messageDoc.data() as Map<String, dynamic>;
           data['id'] = messageDoc.id;
           String hotelId = messageDoc['reciverId'];
+          String uniqueKey = '${userDoc.id}_$hotelId';
+
           for (var userHotel in hotelSnapshot.docs) {
-            if (messageDoc['reciverId'] == userHotel.id) {
-              if (!seenHotelIds.contains(hotelId)) {
+            if (hotelId == userHotel.id) {
+              if (!uniqueMessages.contains(uniqueKey)) {
+                // print('HALO');
+                ///print(uniqueKey);
                 messages.add(data);
-                seenHotelIds.add(hotelId);
+                uniqueMessages.add(uniqueKey);
                 data.forEach((key, value) {
                   print('$key: $value');
                 });
               }
+              break;
             }
           }
         }
       }
 
       if (messages.isNotEmpty) {
-        emit(MessagesLoaded(messages: messages.toSet().toList()));
+        emit(MessagesLoaded(messages: messages));
       } else {
         emit(MessagesError(error: 'No messages found'));
       }

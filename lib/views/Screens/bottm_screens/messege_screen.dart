@@ -57,7 +57,7 @@ class _MessegepageState extends State<Messegepage> {
                 itemCount: state.messages.length,
                 itemBuilder: (context, index) {
                   var message = state.messages[index];
-                  String hotelid = message['userId']!;
+                  String hotelid = message['userId'] ?? '';
                   String senderEmail = message['senderEmail'];
                   String hotelnmae = message['Hotelname'];
                   String senderName = _extractUsername(senderEmail);
