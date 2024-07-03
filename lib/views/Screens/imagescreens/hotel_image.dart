@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously, unnecessary_nullable_for_final_variable_declarations, library_private_types_in_public_api
+
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -57,7 +59,7 @@ class _HotelimageanddataState extends State<Hotelimageanddata> {
       body: BlocBuilder<HotelBloc, HotelState>(
         builder: (context, state) {
           if (state is HotelDataError) {
-            print(state.error); // Use state.error to print error details
+            //   print(state.error); // Use state.error to print error details
           }
           return Column(
             children: [

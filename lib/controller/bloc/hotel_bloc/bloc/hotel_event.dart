@@ -1,6 +1,6 @@
 // hotel_event.dart
 
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, non_constant_identifier_names
 
 part of 'hotel_bloc.dart';
 

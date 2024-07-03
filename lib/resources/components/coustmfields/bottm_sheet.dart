@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_null_comparison, use_build_context_synchronously
+// ignore_for_file: unnecessary_null_comparison, use_build_context_synchronously, unnecessary_brace_in_string_interps
 
 import 'package:flutter/material.dart';
 import 'package:hotelonwer/Utils/alert_box.dart';
@@ -79,7 +79,7 @@ class CustomBottomSheet {
       for (XFile image in selectedImages) {
         final File file = File(image.path);
         final int fileSize = await file.length();
-        print('file sizeis ${fileSize}');
+        // print('file sizeis ${fileSize}');
         if (fileSize < 250 * 2160) {
           validImages.add(image);
         } else {

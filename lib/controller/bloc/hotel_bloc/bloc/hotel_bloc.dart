@@ -220,7 +220,7 @@
 //   }
 // }
 
-// ignore_for_file: unnecessary_cast
+// ignore_for_file: unnecessary_cast, non_constant_identifier_names
 import 'dart:developer';
 
 import 'dart:typed_data';

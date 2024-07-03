@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:hotelonwer/Utils/snackbar_page.dart';
 import 'package:hotelonwer/resources/components/coustmfields/theame.dart';
@@ -30,7 +32,7 @@ class HotelDetailsBottomSheet extends StatefulWidget {
 class _HotelDetailsBottomSheetState extends State<HotelDetailsBottomSheet> {
   // Refresh function to be called after data is loaded
   void refreshFunction() {
-    print('Data has been refreshed');
+    // print('Data has been refreshed');
     Navigator.of(context).pop();
   }
 

@@ -1,6 +1,6 @@
 // hotel_state.dart
 
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, prefer_typing_uninitialized_variables
 
 part of 'hotel_bloc.dart';
 
@@ -30,7 +30,6 @@ class HotelDataError extends HotelState {
 class Hoteldataloading extends HotelState {}
 
 class Hotelimageuploded extends HotelState {
-  // ignore: prefer_typing_uninitialized_variables
   final downloadurl;
   Hotelimageuploded({
     required this.downloadurl,

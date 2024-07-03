@@ -1,7 +1,9 @@
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // For accessing clipboard functionality
 import 'package:hotelonwer/resources/components/coustmfields/theame.dart';
-import 'package:intl/intl.dart'; // Add this import for date formatting
+// Add this import for date formatting
 
 class canceletails extends StatelessWidget {
   final String hotelName;

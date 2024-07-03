@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_null_comparison, no_leading_underscores_for_local_identifiers
+// ignore_for_file: unnecessary_null_comparison, no_leading_underscores_for_local_identifiers, use_build_context_synchronously, await_only_futures
 
 import 'dart:developer';
 
