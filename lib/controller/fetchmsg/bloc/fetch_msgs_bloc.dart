@@ -1,7 +1,5 @@
 // ignore_for_file: non_constant_identifier_names, avoid_print
 
-import 'dart:math';
-
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';

@@ -1,6 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hotelonwer/model/mesage_model.dart';
 import 'package:hotelonwer/repositoires/message_repository.dart';
 import 'package:meta/meta.dart';
@@ -10,8 +8,6 @@ part 'scoketmsg_state.dart';
 
 class ScoketmsgBloc extends Bloc<ScoketmsgEvent, ScoketmsgState> {
   final MessageRepository _messageRepository;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final FirebaseAuth _auth = FirebaseAuth.instance;
   ScoketmsgBloc({required MessageRepository messageRepository})
       : _messageRepository = messageRepository,
         super(ScoketmsgInitial()) {

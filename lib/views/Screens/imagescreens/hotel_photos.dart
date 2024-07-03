@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison, no_leading_underscores_for_local_identifiers
+
 import 'dart:developer';
 
 import 'dart:typed_data';

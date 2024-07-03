@@ -13,7 +13,7 @@ Future<void> signInWithGoogle(BuildContext context) async {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
     if (googleUser == null) {
-      print("User canceled sign-in");
+      //   print("User canceled sign-in");
       return;
     }
 
@@ -43,7 +43,7 @@ Future<void> signInWithGoogle(BuildContext context) async {
       );
     }
   } catch (error) {
-    print("Error signing in with Google: $error");
+    // print("Error signing in with Google: $error");
 
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(builder: (context) => const Logingpage()),

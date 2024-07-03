@@ -1,5 +1,7 @@
 // hotel_state.dart
 
+// ignore_for_file: must_be_immutable
+
 part of 'hotel_bloc.dart';
 
 @immutable
@@ -12,7 +14,6 @@ class HotelDataAdded extends HotelState {
   HotelDataAdded({required this.id});
 }
 
-// ignore: must_be_immutable
 class HotelDataUpdated extends HotelState {
   String id;
   HotelDataUpdated({required this.id});

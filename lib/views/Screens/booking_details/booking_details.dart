@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // For accessing clipboard functionality
 import 'package:hotelonwer/resources/components/coustmfields/theame.dart';
-import 'package:intl/intl.dart'; // Add this import for date formatting
+// Add this import for date formatting
 
 class Bookedetails extends StatelessWidget {
   final String hotelName;
