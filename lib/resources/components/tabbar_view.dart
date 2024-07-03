@@ -82,6 +82,14 @@ class _TabbarViewState extends State<TabbarView> {
                     : 'No cancelled hotels found.'),
               );
             }
+            hotels.sort((a, b) {
+              DateTime dateA =
+                  DateFormat('yyyy-MMMM-dd – hh:mm a').parse(a['bookeddate']);
+              DateTime dateB =
+                  DateFormat('yyyy-MMMM-dd – hh:mm a').parse(b['bookeddate']);
+              return dateB.compareTo(dateA);
+            });
+
             return ListView.builder(
               itemCount: hotels.length,
               itemBuilder: (context, index) {

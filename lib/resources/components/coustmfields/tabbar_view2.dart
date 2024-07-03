@@ -41,7 +41,7 @@ class Tabview2 extends StatelessWidget {
   }
 
   Widget _buildTabContent(BuildContext context, String status) {
-    Color ststuscolor = Colors.black;
+    Color ststuscolor = mycolor8;
     if (status == 'Booked') {
       ststuscolor = mygreen;
     } else if (status == 'Cancelled') {
@@ -72,7 +72,13 @@ class Tabview2 extends StatelessWidget {
                     : 'No cancelled hotels found.'),
               );
             }
-
+            hotels.sort((a, b) {
+              DateTime dateA =
+                  DateFormat('yyyy-MMMM-dd – hh:mm a').parse(a['bookeddate']);
+              DateTime dateB =
+                  DateFormat('yyyy-MMMM-dd – hh:mm a').parse(b['bookeddate']);
+              return dateB.compareTo(dateA);
+            });
             return ListView.builder(
               itemCount: hotels.length,
               itemBuilder: (context, index) {

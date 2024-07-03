@@ -58,9 +58,9 @@ class _BottomNavPageState extends State<BottomNavPage> {
             activeColor: mycolor4,
             iconSize: 24,
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-            duration: const Duration(milliseconds: 800),
+            duration: const Duration(milliseconds: 600),
             tabBackgroundColor: Color.fromARGB(195, 230, 12, 12),
-            color: Colors.black,
+            color: mycolor8,
             tabs: const [
               GButton(
                 icon: Icons.house,

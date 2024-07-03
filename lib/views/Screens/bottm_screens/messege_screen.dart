@@ -1,4 +1,4 @@
-// ignore_for_file: unused_element, unused_local_variable
+// ignore_for_file: unused_element, unused_local_variable, library_private_types_in_public_api
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelonwer/controller/fetchmsg/bloc/fetch_msgs_bloc.dart';
 import 'package:hotelonwer/controller/fetchmsg/bloc/fetch_msgs_event.dart';
 import 'package:hotelonwer/controller/fetchmsg/bloc/fetch_msgs_state.dart';
+import 'package:hotelonwer/resources/components/coustmfields/network_page.dart';
 import 'package:hotelonwer/resources/components/coustmfields/theame.dart';
 import 'package:hotelonwer/views/Screens/messages/chat_screen.dart';
 import 'package:intl/intl.dart';
@@ -21,7 +22,7 @@ class _MessegepageState extends State<Messegepage> {
   @override
   void initState() {
     super.initState();
-
+    InternetConnectionChecker.start(context);
     context.read<FetchMsgsBloc>().add(fetchmessages());
   }
 
@@ -53,6 +54,11 @@ class _MessegepageState extends State<Messegepage> {
           },
           builder: (context, state) {
             if (state is MessagesLoaded) {
+              state.messages.sort((a, b) {
+                Timestamp timestampA = a['timestamp'];
+                Timestamp timestampB = b['timestamp'];
+                return timestampB.compareTo(timestampA);
+              });
               return ListView.builder(
                 itemCount: state.messages.length,
                 itemBuilder: (context, index) {
@@ -117,7 +123,9 @@ class _MessegepageState extends State<Messegepage> {
                             ],
                           ),
                         ),
-                        Divider(), // Optional: Add a divider between messages
+                        Divider(
+                          thickness: 0.3,
+                        ),
                       ],
                     ),
                   );

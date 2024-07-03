@@ -5,6 +5,7 @@ import 'package:hotelonwer/controller/bloc/hotel_bloc/bloc/hotel_bloc.dart';
 import 'package:hotelonwer/controller/fetchmsg/bloc/fetch_msgs_bloc.dart';
 import 'package:hotelonwer/controller/fetchmsg/bloc/fetch_msgs_event.dart';
 import 'package:hotelonwer/controller/revnue/bloc/revanue_bloc.dart';
+import 'package:hotelonwer/resources/components/coustmfields/network_page.dart';
 import 'package:hotelonwer/resources/components/coustmfields/tabbar_view2.dart';
 import 'package:hotelonwer/resources/components/tabbar_view.dart';
 import 'package:hotelonwer/views/Screens/loginscrren/singup.dart';
@@ -32,6 +33,7 @@ class _HomepageState extends State<Homepage> {
     fetchdata();
     super.initState();
     currentUser = FirebaseAuth.instance.currentUser;
+    InternetConnectionChecker.start(context);
   }
 
   @override
