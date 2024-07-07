@@ -1,4 +1,4 @@
-// ignore_for_file: unused_element, unused_local_variable, library_private_types_in_public_api
+// ignore_for_file: library_private_types_in_public_api
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -46,117 +46,157 @@ class _MessegepageState extends State<Messegepage> {
         ),
       ),
       backgroundColor: mycolor4,
-      body: RefreshIndicator(
-        onRefresh: _refreshMessages,
-        child: BlocConsumer<FetchMsgsBloc, FetchMsgsState>(
-          listener: (context, state) {
-            if (state is MessagesLoading) {}
-          },
-          builder: (context, state) {
-            if (state is MessagesLoaded) {
-              state.messages.sort((a, b) {
-                Timestamp timestampA = a['timestamp'];
-                Timestamp timestampB = b['timestamp'];
-                return timestampB.compareTo(timestampA);
-              });
-              return ListView.builder(
-                itemCount: state.messages.length,
-                itemBuilder: (context, index) {
-                  var message = state.messages[index];
-                  String hotelid = message['userId'] ?? '';
-                  String senderEmail = message['senderEmail'];
-                  String hotelnmae = message['Hotelname'];
-                  String senderName = _extractUsername(senderEmail);
-                  dynamic datetime = message['timestamp'];
-
-                  Color color = Colors.primaries[
-                      senderEmail.hashCode % Colors.primaries.length];
-
-                  return InkWell(
-                    onTap: () async {
-                      await Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => ChatScreen(
-                                senderEmail: senderEmail,
-                                receiverId: message['reciverId'],
-                                hotelname: hotelnmae,
-                                userid: hotelid,
-                              )));
-                    },
-                    child: Column(
-                      children: [
-                        ListTile(
-                          leading: Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: CircleAvatar(
-                              backgroundColor: color,
-                              child: Text(
-                                senderName[0].toUpperCase(),
-                                style: TextStyle(
-                                  color: mycolor4,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ),
-                          title: Text(
-                            senderName,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w500),
-                          ),
-                          subtitle: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(hotelnmae),
-                              Text(
-                                hotelid,
-                                style: TextStyle(fontSize: 0),
-                              )
-                            ],
-                          ),
-                          trailing: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(_formatTimestamp(datetime)),
-                              Text(_formatDate(datetime))
-                            ],
-                          ),
-                        ),
-                        Divider(
-                          thickness: 0.3,
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              );
-            } else if (state is MessagesError) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Center(
-                    child: Image.asset(
-                      'lib/Asset/Screenshot 2024-06-29 142420.png',
-                      width: 200,
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return RefreshIndicator(
+            onRefresh: _refreshMessages,
+            child: Stack(
+              children: [
+                SingleChildScrollView(
+                  child: Center(
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        maxWidth: constraints.maxWidth > 800
+                            ? 800
+                            : constraints.maxWidth,
+                      ),
+                      child: _buildMessagesList(),
                     ),
                   ),
-                  Text('No messages or enquiries received yet')
-                ],
-              );
-            } else if (state is MessagesLoading) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            } else {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-          },
-        ),
+                ),
+              ],
+            ),
+          );
+        },
       ),
+    );
+  }
+
+  Widget _buildMessagesList() {
+    return BlocConsumer<FetchMsgsBloc, FetchMsgsState>(
+      listener: (context, state) {
+        if (state is MessagesLoading) {}
+      },
+      builder: (context, state) {
+        if (state is MessagesLoaded) {
+          state.messages.sort((a, b) {
+            Timestamp timestampA = a['timestamp'];
+            Timestamp timestampB = b['timestamp'];
+            return timestampB.compareTo(timestampA);
+          });
+          return ListView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: state.messages.length,
+            itemBuilder: (context, index) {
+              var message = state.messages[index];
+              String hotelid = message['userId'] ?? '';
+              String senderEmail = message['senderEmail'];
+              String hotelnmae = message['Hotelname'];
+              String senderName = _extractUsername(senderEmail);
+              dynamic datetime = message['timestamp'];
+
+              Color color = Colors
+                  .primaries[senderEmail.hashCode % Colors.primaries.length];
+
+              return InkWell(
+                onTap: () async {
+                  await Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => ChatScreen(
+                            senderEmail: senderEmail,
+                            receiverId: message['reciverId'],
+                            hotelname: hotelnmae,
+                            userid: hotelid,
+                          )));
+                },
+                child: Column(
+                  children: [
+                    ListTile(
+                      leading: Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: CircleAvatar(
+                          backgroundColor: color,
+                          child: Text(
+                            senderName[0].toUpperCase(),
+                            style: TextStyle(
+                              color: mycolor4,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                      title: Text(
+                        senderName,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.w500),
+                      ),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(hotelnmae),
+                          Text(
+                            hotelid,
+                            style: TextStyle(fontSize: 0),
+                          )
+                        ],
+                      ),
+                      trailing: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(_formatTimestamp(datetime)),
+                          Text(_formatDate(datetime))
+                        ],
+                      ),
+                    ),
+                    Divider(
+                      thickness: 0.3,
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
+        } else if (state is MessagesError) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(height: MediaQuery.of(context).size.height * 0.3),
+              Center(
+                child: Image.asset(
+                  'lib/Asset/Screenshot 2024-06-29 142420.png',
+                  width: 200,
+                ),
+              ),
+              Text('No messages or enquiries received yet')
+            ],
+          );
+        } else if (state is MessagesLoading) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(height: MediaQuery.of(context).size.height * 0.4),
+              Center(
+                child: CircularProgressIndicator(),
+              ),
+            ],
+          );
+        } else {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(height: MediaQuery.of(context).size.height * 0.4),
+              Center(
+                child: CircularProgressIndicator(),
+              ),
+            ],
+          );
+        }
+      },
     );
   }
 

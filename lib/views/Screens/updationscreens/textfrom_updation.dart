@@ -85,373 +85,391 @@ class _UpdateHoteldataState extends State<UpdateHoteldata> {
         ),
       ),
       backgroundColor: mycolor5,
-      body: Stack(
-        children: [
-          SingleChildScrollView(
-            padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
-            child: Form(
-              key: _formKey,
-              child: BlocBuilder<HotelBloc, HotelState>(
-                builder: (context, state) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const SizedBox(height: 30),
-                      CustomTextField2(
-                        fillColor: mycolor4,
-                        keyboardType: TextInputType.name,
-                        controller: hotelNameController,
-                        hintText: 'Enter your hotel name',
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter hotel name';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 20.0),
-                      CustomTextField2(
-                        fillColor: mycolor4,
-                        keyboardType: TextInputType.multiline,
-                        controller: descriptionController,
-                        // maxLines: 3,
-                        hintText: 'Enter hotel description',
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter hotel description';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 20.0),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: CustomDropdownButton<String>(
-                              hintText: 'Wifi option',
-                              value: selectedWifiAvailability,
-                              items: const [
-                                'Available',
-                                'Not Available',
-                                'Limited'
-                              ],
-                              onChanged: (value) {
-                                setState(() {
-                                  selectedWifiAvailability = value;
-                                });
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return Stack(
+            children: [
+              SingleChildScrollView(
+                padding: const EdgeInsets.all(20.0),
+                child: Center(
+                  child: SizedBox(
+                    width:
+                        constraints.maxWidth > 800 ? 800 : constraints.maxWidth,
+                    child: _buildForm(),
+                  ),
+                ),
+              ),
+              if (constraints.maxWidth > 600 && constraints.maxWidth < 800)
+                Positioned(
+                  right: 0,
+                  top: 50,
+                  bottom: 50,
+                  child: Image.asset(
+                    'lib/Asset/Screenshot 2024-07-03 224456.png',
+                    width: 200,
+                    height: 200,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              if (_showCircleAvatar) // Conditional rendering based on flag
+                Positioned(
+                  top: 180, // Adjust position as needed
+                  left: 50, // Adjust position as needed
+                  child: InkWell(
+                    onTap: () => Navigator.of(context).pop(),
+                    child: Container(
+                        height: 300,
+                        width: 300,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: Colors.black.withOpacity(0.4)),
+
+                        // Example background color
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => Hotelroomreplce(
+                                          roomImages: widget.hotel['images'],
+                                          documntid: widget.hotel['id'],
+                                        )));
+                                log(widget.hotel['id']);
                               },
-                              validator: (value) {
-                                if (value == null) {
-                                  return 'Please select wifi availability';
-                                }
-                                return null;
-                              },
-                              dropdownStyle:
-                                  const TextStyle(color: Colors.black),
+                              child: Container(
+                                height: 50,
+                                width: 250,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Colors.blue),
+                                child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(Icons.restore_outlined),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text(
+                                        'Replace your Room images',
+                                        style: TextStyle(color: mycolor4),
+                                      )
+                                    ]),
+                              ),
                             ),
-                          ),
-                          const SizedBox(width: 8),
-                          Expanded(
-                            child: CustomDropdownButton<String>(
-                              hintText: 'Room type',
-                              value: roomType,
-                              items: const [
-                                'Single room',
-                                'Double room',
-                                'Deluxe room',
-                                'Studio room'
-                              ],
-                              onChanged: (value) {
-                                setState(() {
-                                  roomType = value;
-                                });
-                              },
-                              validator: (value) {
-                                if (value == null) {
-                                  return 'Please select the room type';
-                                }
-                                return null;
-                              },
-                              dropdownStyle:
-                                  const TextStyle(color: Colors.black),
+                            SizedBox(
+                              height: 30,
                             ),
-                          )
-                        ],
-                      ),
-                      const SizedBox(height: 20.0),
-                      CustomTextField2(
-                        fillColor: mycolor4,
-                        keyboardType: TextInputType.name,
-                        controller: inceptionYearController,
-                        hintText: 'Adress&landmark',
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please Details';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 20.0),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: CustomTextField2(
-                              maxlength: 20,
-                              fillColor: mycolor4,
-                              keyboardType: TextInputType.text,
-                              controller: locationController,
-                              hintText: 'Enter location',
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter location';
-                                }
-                                return null;
+                            GestureDetector(
+                              onTap: () {
+                                log(widget.hotel['id']);
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => TouristImageReplace(
+                                          touristImages:
+                                              widget.hotel['tourimage'],
+                                          documentId: widget.hotel['id'],
+                                          coverimage:
+                                              widget.hotel['coverimage'],
+                                          pathimage: widget.hotel['pathimage'],
+                                        )));
                               },
+                              child: Container(
+                                height: 50,
+                                width: 250,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Colors.blue),
+                                child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(Icons.restore_outlined),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text(
+                                        'Replace your Tourist images',
+                                        style: TextStyle(color: mycolor4),
+                                      )
+                                    ]),
+                              ),
                             ),
-                          ),
-                          const SizedBox(width: 20),
-                          Expanded(
-                            child: CustomTextField2(
-                              fillColor: mycolor4,
-                              keyboardType: TextInputType.number,
-                              controller: priceController,
-                              hintText: 'Enter price',
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter price';
-                                }
-                                return null;
-                              },
-                            ),
-                            // child:
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 20.0),
-                      CustomTextField2(
-                        fillColor: mycolor4,
-                        keyboardType: TextInputType.multiline,
-                        controller: touristPlacesController,
-                        hintText: 'Enter nearest tourist places',
-                        // maxLines: 3,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter tourist places';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 20.0),
-                      IntlPhoneField(
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: mycolor4,
-                          labelText: 'Phone',
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(color: mycolor3),
-                          ),
-                          border:
-                              OutlineInputBorder(borderSide: BorderSide.none),
-                        ),
-                        controller: contactController,
-                        initialCountryCode: 'IN', // Initial country code
-                        validator: (value) {
-                          if (value == null) {
-                            return 'Phone is required';
-                          }
-                          return null;
-                        },
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      CustomDropdownButton<String>(
-                        hintText: 'Food option',
-                        value: acoption,
-                        items: const ['Available', 'Non A/C'],
-                        onChanged: (value) {
-                          setState(() {
-                            acoption = value;
-                          });
-                        },
-                        validator: (value) {
-                          if (value == null) {
-                            return 'Please select AC availability';
-                          }
-                          return null;
-                        },
-                        dropdownStyle: const TextStyle(color: Colors.black),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Expanded(
-                            child: CustomDropdownButton<String>(
-                              hintText: 'Food option',
-                              value: selectedFoodAvailability,
-                              items: const ['Free food', 'Paid'],
-                              onChanged: (value) {
-                                setState(() {
-                                  selectedFoodAvailability = value;
-                                });
-                              },
-                              validator: (value) {
-                                if (value == null) {
-                                  return 'Please select food availability';
-                                }
-                                return null;
-                              },
-                              dropdownStyle:
-                                  const TextStyle(color: Colors.black),
-                            ),
-                          ),
-                          const SizedBox(width: 10),
-                          Expanded(
-                            child: CustomDropdownButton<String>(
-                              hintText: 'Refund option',
-                              value: refundOption,
-                              items: const ['Yes', 'No', '50%'],
-                              onChanged: (value) {
-                                setState(() {
-                                  refundOption = value;
-                                });
-                              },
-                              validator: (value) {
-                                if (value == null) {
-                                  return 'Please select refund option';
-                                }
-                                return null;
-                              },
-                              dropdownStyle:
-                                  const TextStyle(color: Colors.black),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 30),
-                      SizedBox(
-                        width: 200,
-                        child: ElevatedButton(
-                          onPressed: _updateHotel,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                const Color.fromARGB(255, 13, 52, 160),
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 10),
-                            textStyle: const TextStyle(fontSize: 18),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            elevation: 15,
-                          ),
-                          child: Text(
-                            'Update',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 15,
-                              color: mycolor4,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  );
+                          ],
+                        )),
+                  ),
+                )
+            ],
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildForm() {
+    return Form(
+      key: _formKey,
+      child: BlocBuilder<HotelBloc, HotelState>(
+        builder: (context, state) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SizedBox(height: 30),
+              CustomTextField2(
+                fillColor: mycolor4,
+                keyboardType: TextInputType.name,
+                controller: hotelNameController,
+                hintText: 'Enter your hotel name',
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter hotel name';
+                  }
+                  return null;
                 },
               ),
-            ),
-          ),
-          if (_showCircleAvatar) // Conditional rendering based on flag
-            Positioned(
-              top: 180, // Adjust position as needed
-              left: 50, // Adjust position as needed
-              child: InkWell(
-                onTap: () => Navigator.of(context).pop(),
-                child: Container(
-                    height: 300,
-                    width: 300,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Colors.black.withOpacity(0.4)),
-
-                    // Example background color
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => Hotelroomreplce(
-                                      roomImages: widget.hotel['images'],
-                                      documntid: widget.hotel['id'],
-                                    )));
-                            log(widget.hotel['id']);
-                          },
-                          child: Container(
-                            height: 50,
-                            width: 250,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.blue),
-                            child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(Icons.restore_outlined),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  Text(
-                                    'Replace your Room images',
-                                    style: TextStyle(color: mycolor4),
-                                  )
-                                ]),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 30,
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            log(widget.hotel['id']);
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => TouristImageReplace(
-                                      touristImages: widget.hotel['tourimage'],
-                                      documentId: widget.hotel['id'],
-                                      coverimage: widget.hotel['coverimage'],
-                                      pathimage: widget.hotel['pathimage'],
-                                    )));
-                          },
-                          child: Container(
-                            height: 50,
-                            width: 250,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.blue),
-                            child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(Icons.restore_outlined),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  Text(
-                                    'Replace your Tourist images',
-                                    style: TextStyle(color: mycolor4),
-                                  )
-                                ]),
-                          ),
-                        ),
-                      ],
-                    )),
+              const SizedBox(height: 20.0),
+              CustomTextField2(
+                fillColor: mycolor4,
+                keyboardType: TextInputType.multiline,
+                controller: descriptionController,
+                // maxLines: 3,
+                hintText: 'Enter hotel description',
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter hotel description';
+                  }
+                  return null;
+                },
               ),
-            ),
-        ],
+              const SizedBox(height: 20.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: CustomDropdownButton<String>(
+                      hintText: 'Wifi option',
+                      value: selectedWifiAvailability,
+                      items: const ['Available', 'Not Available', 'Limited'],
+                      onChanged: (value) {
+                        setState(() {
+                          selectedWifiAvailability = value;
+                        });
+                      },
+                      validator: (value) {
+                        if (value == null) {
+                          return 'Please select wifi availability';
+                        }
+                        return null;
+                      },
+                      dropdownStyle: const TextStyle(color: Colors.black),
+                    ),
+                  ),
+                  const SizedBox(width: 1),
+                  Expanded(
+                    child: CustomDropdownButton<String>(
+                      hintText: 'Room type',
+                      value: roomType,
+                      items: const [
+                        'Single room',
+                        'Double room',
+                        'Deluxe room',
+                        'Studio room'
+                      ],
+                      onChanged: (value) {
+                        setState(() {
+                          roomType = value;
+                        });
+                      },
+                      validator: (value) {
+                        if (value == null) {
+                          return 'Please select the room type';
+                        }
+                        return null;
+                      },
+                      dropdownStyle: const TextStyle(color: Colors.black),
+                    ),
+                  )
+                ],
+              ),
+              const SizedBox(height: 20.0),
+              CustomTextField2(
+                fillColor: mycolor4,
+                keyboardType: TextInputType.name,
+                controller: inceptionYearController,
+                hintText: 'Adress&landmark',
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please Details';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 20.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: CustomTextField2(
+                      maxlength: 20,
+                      fillColor: mycolor4,
+                      keyboardType: TextInputType.text,
+                      controller: locationController,
+                      hintText: 'Enter location',
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter location';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  const SizedBox(width: 20),
+                  Expanded(
+                    child: CustomTextField2(
+                      fillColor: mycolor4,
+                      keyboardType: TextInputType.number,
+                      controller: priceController,
+                      hintText: 'Enter price',
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter price';
+                        }
+                        return null;
+                      },
+                    ),
+                    // child:
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20.0),
+              CustomTextField2(
+                fillColor: mycolor4,
+                keyboardType: TextInputType.multiline,
+                controller: touristPlacesController,
+                hintText: 'Enter nearest tourist places',
+                // maxLines: 3,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter tourist places';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 20.0),
+              IntlPhoneField(
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: mycolor4,
+                  labelText: 'Phone',
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(color: mycolor3),
+                  ),
+                  border: OutlineInputBorder(borderSide: BorderSide.none),
+                ),
+                controller: contactController,
+                initialCountryCode: 'IN', // Initial country code
+                validator: (value) {
+                  if (value == null) {
+                    return 'Phone is required';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              CustomDropdownButton<String>(
+                hintText: 'Food option',
+                value: acoption,
+                items: const ['Available', 'Non A/C'],
+                onChanged: (value) {
+                  setState(() {
+                    acoption = value;
+                  });
+                },
+                validator: (value) {
+                  if (value == null) {
+                    return 'Please select AC availability';
+                  }
+                  return null;
+                },
+                dropdownStyle: const TextStyle(color: Colors.black),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Expanded(
+                    child: CustomDropdownButton<String>(
+                      hintText: 'Food option',
+                      value: selectedFoodAvailability,
+                      items: const ['Free food', 'Paid'],
+                      onChanged: (value) {
+                        setState(() {
+                          selectedFoodAvailability = value;
+                        });
+                      },
+                      validator: (value) {
+                        if (value == null) {
+                          return 'Please select food availability';
+                        }
+                        return null;
+                      },
+                      dropdownStyle: const TextStyle(color: Colors.black),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: CustomDropdownButton<String>(
+                      hintText: 'Refund option',
+                      value: refundOption,
+                      items: const ['Yes', 'No', '50%'],
+                      onChanged: (value) {
+                        setState(() {
+                          refundOption = value;
+                        });
+                      },
+                      validator: (value) {
+                        if (value == null) {
+                          return 'Please select refund option';
+                        }
+                        return null;
+                      },
+                      dropdownStyle: const TextStyle(color: Colors.black),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 30),
+              SizedBox(
+                width: 200,
+                child: ElevatedButton(
+                  onPressed: _updateHotel,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(255, 13, 52, 160),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 10),
+                    textStyle: const TextStyle(fontSize: 18),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    elevation: 15,
+                  ),
+                  child: Text(
+                    'Update',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 15,
+                      color: mycolor4,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }

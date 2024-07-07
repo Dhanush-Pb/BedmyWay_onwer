@@ -61,7 +61,7 @@ class CustomDropdownButton<T> extends StatelessWidget {
               borderSide: BorderSide.none, // Remove border
             ),
             contentPadding:
-                const EdgeInsets.symmetric(vertical: 10.0, horizontal: 12.0),
+                const EdgeInsets.symmetric(vertical: 10.0, horizontal: 8.0),
           ),
         ),
       ),

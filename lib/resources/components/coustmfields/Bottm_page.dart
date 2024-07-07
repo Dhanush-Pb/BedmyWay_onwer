@@ -42,6 +42,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
         padding:
             const EdgeInsets.only(top: 10, left: 15, right: 15, bottom: 15),
         child: Container(
+          width: MediaQuery.of(context).size.width,
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
             boxShadow: [

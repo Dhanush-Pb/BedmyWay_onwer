@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelonwer/controller/revnue/bloc/revanue_bloc.dart';
@@ -7,36 +9,45 @@ import 'package:hotelonwer/views/Screens/booking_details/cancel_detils.dart';
 import 'package:intl/intl.dart';
 
 class Tabview2 extends StatelessWidget {
-  const Tabview2({super.key});
+  const Tabview2({Key? key});
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        extendBodyBehindAppBar: true,
-        backgroundColor: mycolor5,
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text(
-            'Discover Your Hotel Details',
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        double maxWidth = constraints.maxWidth;
+        return Container(
+          constraints:
+              BoxConstraints(maxWidth: maxWidth < 900 ? maxWidth : 900),
+          child: DefaultTabController(
+            length: 2,
+            child: Scaffold(
+              extendBodyBehindAppBar: true,
+              backgroundColor: mycolor5,
+              appBar: AppBar(
+                centerTitle: true,
+                title: Text(
+                  'Discover Your Hotel Details',
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                ),
+                backgroundColor: mycolor4,
+                bottom: TabBar(
+                  tabs: const [
+                    Tab(text: 'Booked hotels'),
+                    Tab(text: 'Cancelled hotels'),
+                  ],
+                ),
+              ),
+              body: TabBarView(
+                children: [
+                  _buildTabContent(context, 'Booked'),
+                  _buildTabContent(context, 'Cancelled'),
+                ],
+              ),
+            ),
           ),
-          backgroundColor: mycolor4,
-          bottom: TabBar(
-            tabs: const [
-              Tab(text: 'Booked hotels'),
-              Tab(text: 'Cancelled hotels'),
-            ],
-          ),
-        ),
-        body: TabBarView(
-          children: [
-            _buildTabContent(context, 'Booked'),
-            _buildTabContent(context, 'Cancelled'),
-          ],
-        ),
-      ),
+        );
+      },
     );
   }
 
@@ -48,7 +59,7 @@ class Tabview2 extends StatelessWidget {
       ststuscolor = Mycolor1;
     }
     return Container(
-      padding: EdgeInsets.only(left: 10),
+      padding: EdgeInsets.symmetric(horizontal: 20),
       color: mycolor4,
       constraints: BoxConstraints.expand(),
       child: BlocBuilder<RevanueBloc, RevanueState>(
@@ -188,10 +199,11 @@ class Tabview2 extends StatelessWidget {
             );
           } else {
             return Center(
-                child: Image.asset(
-              'lib/Asset/Screenshot 2024-06-20 195158.png',
-              width: 130,
-            ));
+              child: Image.asset(
+                'lib/Asset/Screenshot 2024-06-20 195158.png',
+                width: 130,
+              ),
+            );
           }
         },
       ),

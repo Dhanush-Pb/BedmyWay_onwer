@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types
+// ignore_for_file: camel_case_types, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // For accessing clipboard functionality
@@ -51,165 +51,183 @@ class canceletails extends StatelessWidget {
               color: mycolor4, fontSize: 14, fontWeight: FontWeight.w600),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Center(
-                child: Column(
-                  children: [
-                    Image.asset(
-                      'lib/Asset/Screenshot 2024-06-21 115757.png',
-                      width: 100,
-                    ),
-                    Text(
-                      'This Hotel has been Cancelled',
-                      style: TextStyle(color: Mycolor1),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.050,
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: shwdowcolor,
-                      spreadRadius: 1,
-                      blurRadius: 1,
-                      offset: Offset(0, 3),
-                    ),
-                  ],
-                  color: mycolor4,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    buildRow('Hotel Name', hotelName),
-                    buildRow('Booking Date', bookingDate),
-                    buildRow('Check-In Date', checkInDate),
-                    buildRow('Check-Out Date', checkOutDate),
-                    buildRow('Rating', '$rating ⭐'),
-                    buildRow('Room Type', roomType),
-                    buildRow(
-                        'Total Amount', '₹ ${totalAmount.toStringAsFixed(2)}'),
-                    buildRow('Location', location),
-                    buildRow('Contact', contact),
-                    buildRow('Status', status),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
+      body: LayoutBuilder(builder: (context, Constraints) {
+        return SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(),
+            child: Center(
+              child: SizedBox(
+                width: Constraints.maxWidth > 800 ? 800 : Constraints.maxWidth,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Center(
+                        child: Column(
                           children: [
-                            InkWell(
-                              onTap: () {
-                                Clipboard.setData(ClipboardData(text: hotelId));
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text('Copied $hotelId'),
-                                    duration: Duration(
-                                        seconds:
-                                            1), // Adjust the duration as needed
-                                  ),
-                                );
-                              },
-                              child: Icon(
-                                Icons.copy,
-                                size: 15,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 10,
+                            Image.asset(
+                              'lib/Asset/Screenshot 2024-06-21 115757.png',
+                              width: Constraints.maxWidth * 0.3,
                             ),
                             Text(
-                              'Booking Id',
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w500),
-                            ),
-                            SizedBox(
-                              width: 16,
+                              'This Hotel has been Cancelled',
+                              style: TextStyle(color: Mycolor1),
                             ),
                           ],
                         ),
-                        Text(
-                          hotelId,
-                          style: TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.w400),
-                          overflow: TextOverflow.ellipsis,
-                        )
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.050,
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        padding: EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: shwdowcolor,
+                              spreadRadius: 1,
+                              blurRadius: 1,
+                              offset: Offset(0, 3),
+                            ),
+                          ],
+                          color: mycolor4,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            InkWell(
-                              onTap: () {
-                                Clipboard.setData(ClipboardData(text: hotelId));
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text('Copied $payment'),
-                                    duration: Duration(
-                                        seconds:
-                                            1), // Adjust the duration as needed
-                                  ),
-                                );
-                              },
-                              child: Icon(
-                                Icons.copy,
-                                size: 15,
-                              ),
+                            buildRow('Hotel Name', hotelName),
+                            buildRow('Booking Date', bookingDate),
+                            buildRow('Check-In Date', checkInDate),
+                            buildRow('Check-Out Date', checkOutDate),
+                            buildRow('Rating', '$rating ⭐'),
+                            buildRow('Room Type', roomType),
+                            buildRow('Total Amount',
+                                '₹ ${totalAmount.toStringAsFixed(2)}'),
+                            buildRow('Location', location),
+                            buildRow('Contact', contact),
+                            buildRow('Status', status),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        Clipboard.setData(
+                                            ClipboardData(text: hotelId));
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text('Copied $hotelId'),
+                                            duration: Duration(
+                                                seconds:
+                                                    1), // Adjust the duration as needed
+                                          ),
+                                        );
+                                      },
+                                      child: Icon(
+                                        Icons.copy,
+                                        size: 15,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text(
+                                      'Booking Id',
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    SizedBox(
+                                      width: 16,
+                                    ),
+                                  ],
+                                ),
+                                Text(
+                                  hotelId,
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w400),
+                                  overflow: TextOverflow.ellipsis,
+                                )
+                              ],
                             ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              'payment',
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w500),
-                            ),
-                            SizedBox(
-                              width: 16,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        Clipboard.setData(
+                                            ClipboardData(text: hotelId));
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text('Copied $payment'),
+                                            duration: Duration(
+                                                seconds:
+                                                    1), // Adjust the duration as needed
+                                          ),
+                                        );
+                                      },
+                                      child: Icon(
+                                        Icons.copy,
+                                        size: 15,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text(
+                                      'payment',
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    SizedBox(
+                                      width: 16,
+                                    ),
+                                  ],
+                                ),
+                                Text(
+                                  payment,
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w400),
+                                  overflow: TextOverflow.ellipsis,
+                                )
+                              ],
                             ),
                           ],
                         ),
-                        Text(
-                          payment,
-                          style: TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.w400),
-                          overflow: TextOverflow.ellipsis,
-                        )
-                      ],
-                    ),
-                  ],
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text('Reson of cancelation'),
+                          Text(
+                            concelreson,
+                            style: TextStyle(fontSize: 16, color: Mycolor1),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
-              SizedBox(
-                height: 15,
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text('Reson of cancelation'),
-                  Text(
-                    concelreson,
-                    style: TextStyle(fontSize: 16, color: Mycolor1),
-                  )
-                ],
-              )
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      }),
     );
   }
 

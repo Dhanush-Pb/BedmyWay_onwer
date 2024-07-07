@@ -1,11 +1,13 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelonwer/resources/components/coustmfields/theame.dart';
-import 'package:hotelonwer/views/Screens/loginscrren/loginpage.dart';
 
 import 'package:hotelonwer/controller/bloc/auth_bloc.dart';
 import 'package:hotelonwer/resources/components/coustmfields/google.dart';
 import 'package:hotelonwer/resources/components/coustmfields/transitrion.dart';
+import 'package:hotelonwer/views/Screens/loginscrren/loginpage.dart';
 
 showLogoutConfirmationDialog(BuildContext context) {
   showDialog(
@@ -25,11 +27,12 @@ showLogoutConfirmationDialog(BuildContext context) {
             ),
           ),
           TextButton(
-            onPressed: () {
+            onPressed: () async {
               final authBloc = BlocProvider.of<AuthBloc>(context);
-              authBloc.add(logoutevent());
               signOut(context);
+              authBloc.add(logoutevent());
               authBloc.add(GoogleSignOutEvent());
+              await Future.delayed(Duration(milliseconds: 500));
               Navigator.of(context).pushAndRemoveUntil(
                 buildPageTransition(
                   // ignore: prefer_const_constructors

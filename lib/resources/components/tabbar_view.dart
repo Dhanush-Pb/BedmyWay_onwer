@@ -36,18 +36,23 @@ class _TabbarViewState extends State<TabbarView> {
               ],
             ),
           ),
-          body: TabBarView(
-            children: [
-              _buildTabContent(context, 'Booked'),
-              _buildTabContent(context, 'Cancelled'),
-            ],
+          body: LayoutBuilder(
+            builder: (context, constraints) {
+              return TabBarView(
+                children: [
+                  _buildTabContent(context, 'Booked', constraints),
+                  _buildTabContent(context, 'Cancelled', constraints),
+                ],
+              );
+            },
           ),
         ),
       ),
     );
   }
 
-  Widget _buildTabContent(BuildContext context, String status) {
+  Widget _buildTabContent(
+      BuildContext context, String status, BoxConstraints constraints) {
     Color statusColor = mycolor8;
     if (status == 'Booked') {
       statusColor = mygreen;

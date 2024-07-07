@@ -21,7 +21,9 @@ class Passwordreset extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: mycolor5,
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: mycolor5,
+      ),
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is Authloadin) {
@@ -42,76 +44,79 @@ class Passwordreset extends StatelessWidget {
             );
           }
         },
-        child: Container(
-          padding: const EdgeInsets.all(25),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(
-                  height: 55,
-                ),
-                Lottie.asset('lib/Asset/Animation - 1715323824477 (1).json',
-                    width: 300),
-                const SizedBox(
-                  height: 25,
-                ),
-                CustomTextField(
-                  keyboardType: TextInputType.emailAddress,
-                  controller: emailController,
-                  hintText: 'Enter email',
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                GestureDetector(
-                  onTap: () {
-                    final String email = emailController.text.trim();
-                    if (email.isNotEmpty && isValidEmail(email)) {
-                      context
-                          .read<AuthBloc>()
-                          .add(ForgotPasswordEvent(email: email));
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          behavior: SnackBarBehavior.floating,
-                          backgroundColor: Mycolor1,
-                          duration: Duration(seconds: 1),
-                          content: Text('Please enter a valid email'),
-                        ),
-                      );
-                    }
-                  },
-                  child: Container(
-                    height: 40,
-                    width: 350,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: Color.fromARGB(255, 9, 126, 91),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.restore,
-                          color: mycolor4,
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          'Reset password',
-                          style: TextStyle(
-                            color: mycolor4,
-                            fontWeight: FontWeight.w600,
+        child: Center(
+          child: Container(
+            width: 350,
+            padding: const EdgeInsets.all(25),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const SizedBox(
+                    height: 55,
+                  ),
+                  Lottie.asset('lib/Asset/Animation - 1715323824477 (1).json',
+                      width: 300),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  CustomTextField(
+                    keyboardType: TextInputType.emailAddress,
+                    controller: emailController,
+                    hintText: 'Enter email',
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      final String email = emailController.text.trim();
+                      if (email.isNotEmpty && isValidEmail(email)) {
+                        context
+                            .read<AuthBloc>()
+                            .add(ForgotPasswordEvent(email: email));
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            behavior: SnackBarBehavior.floating,
+                            backgroundColor: Mycolor1,
+                            duration: Duration(seconds: 1),
+                            content: Text('Please enter a valid email'),
                           ),
-                        ),
-                      ],
+                        );
+                      }
+                    },
+                    child: Container(
+                      height: 40,
+                      width: 350,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: Color.fromARGB(255, 9, 126, 91),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.restore,
+                            color: mycolor4,
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            'Reset password',
+                            style: TextStyle(
+                              color: mycolor4,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
